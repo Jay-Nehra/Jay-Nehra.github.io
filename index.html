@@ -1,4 +1,4 @@
-<!-- Jayant Nehra Portfolio Site - index.html -->
+<!-- Jayant Nehra Portfolio Site - index.html (refined UI + content) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +8,31 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <style>
+    .skills-content ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      list-style: none;
+      padding: 0;
+    }
+    .skills-content ul li {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skills-content i {
+      font-size: 24px;
+    }
+    .serv-content .card i {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    .home {
+      background: linear-gradient(to right, #111, #333);
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -30,7 +55,7 @@
       <div class="home-content">
         <div class="text-1">Hi, I'm</div>
         <div class="text-2">Jayant Nehra</div>
-        <div class="text-3">A Data Engineer working with APIs & Language Models</div>
+        <div class="text-3">Data Engineer</div>
       </div>
     </div>
   </section>
@@ -41,7 +66,7 @@
       <div class="about-content">
         <div class="column right">
           <div class="text">Who I Am</div>
-          <p>I’m a data engineer with 5+ years of experience across telecom, enterprise, and startup settings. I began with Oracle database migrations in the telecom domain, progressed into microservice development in Go, and later helped build a data science division at a startup. Over the last two years, I’ve focused on enabling ML/LLM applications, building end-to-end data and inference pipelines, and supporting both experimentation and production workloads.</p>
+          <p>I’m a data engineer with 5+ years of experience across telecom, enterprise, and startup settings. I began with Oracle database migrations in the telecom domain, progressed into microservice development in Go, and later helped build a data science division at a startup. Over the last two years, I’ve focused on enabling ML and LLM applications, building end-to-end data and inference pipelines, and supporting both experimentation and production workloads.</p>
         </div>
       </div>
     </div>
@@ -51,10 +76,10 @@
     <div class="max-width">
       <h2 class="title">Expertise</h2>
       <div class="serv-content">
-        <div class="card"><div class="box"><i class="fas fa-database"></i><div class="text">Data Engineering</div></div></div>
-        <div class="card"><div class="box"><i class="fas fa-cogs"></i><div class="text">APIs & Automation</div></div></div>
-        <div class="card"><div class="box"><i class="fas fa-brain"></i><div class="text">LLM Workflows</div></div></div>
-        <div class="card"><div class="box"><i class="fas fa-cloud"></i><div class="text">Cloud Integration</div></div></div>
+        <div class="card"><div class="box"><i class="fas fa-database"></i><div class="text">Data Engineering Workflows</div></div></div>
+        <div class="card"><div class="box"><i class="fas fa-code"></i><div class="text">API Development</div></div></div>
+        <div class="card"><div class="box"><i class="fas fa-cloud"></i><div class="text">Cloud Data Integration</div></div></div>
+        <div class="card"><div class="box"><i class="fas fa-brain"></i><div class="text">LLM Application Support</div></div></div>
       </div>
     </div>
   </section>
