@@ -1,33 +1,42 @@
-# Welcome
+# Personal Website
 
-I'm a developer who builds things, learns in public, and writes notes so I don't have to Google the same thing twice.
+A personal knowledge management system and professional presence, built with MkDocs Material.
 
-## What's Here
+## Purpose
 
-**[About](about.md)** — Who I am and what I do  
-**[Portfolio](portfolio.md)** — Projects I've built  
-**[Resume](resume.md)** — Professional experience and skills  
-**[Blog](blog/)** — Longer-form writing and thoughts  
-**[Notes](notes/)** — Technical explanations and learning notes  
-**[Snippets](snippets/)** — Code I've written and will need again
+This site serves as:
+- A place to organize notes and reference material
+- A professional presence (resume, portfolio, about)
+- A learning system that doesn't depend on third-party platforms
 
-## Recent Updates
+## Structure
 
-- [Why I Built This Site](blog/why-i-built-this-site.md) — 2026-01-22
-- [Understanding Python Async/Await](notes/python/async-explained.md) — 2026-01-20
-- [Rust Ownership Model](notes/rust/ownership-model.md) — 2026-01-18
-- [Python Retry Decorator](snippets/python-retry-decorator.md) — 2026-01-15
+```
+docs/
+├── index.md          # Landing page
+├── about.md          # Background and contact
+├── portfolio.md      # Projects
+├── resume.md         # Professional experience
+├── blog/             # Longer writings
+├── notes/            # Learning notes by topic
+├── references/       # Deep-dive library guides
+└── concepts/         # Core concepts and Q&A
+```
 
-## Currently Learning
+## Local Development
 
-- Rust systems programming
-- Database internals
-- Distributed systems patterns
+```bash
+# Install dependencies
+pip install -r requirements.txt
 
-## Get in Touch
+# Serve locally
+mkdocs serve
+```
 
-- GitHub: [@Jay-Nehra](https://github.com/Jay-Nehra)
-- LinkedIn: [Jayant Nehra](https://linkedin.com/in/jayant-nehra)
-- Email: [GMail](nj.nehra@gmail.com)
+## Deployment
+
+Deployed via GitHub Actions to GitHub Pages on push to main.
 
 ---
+
+Site: [jay-nehra.github.io](https://jay-nehra.github.io)

@@ -16,32 +16,23 @@ These notes follow the [digital garden](https://maggieappleton.com/garden-histor
 ### Python
 - [Understanding Async/Await](python/async-explained.md)
 - [How Decorators Work](python/decorators.md)
-- [Virtual Environments Explained](python/venv-explained.md) *(coming soon)*
+- [The GIL Explained](python/gil-explained.md)
+- [Type Hints Guide](python/type-hints.md)
 
 ### Rust
 - [Understanding the Ownership Model](rust/ownership-model.md)
-- [When to Use References vs Ownership](rust/references-vs-ownership.md) *(coming soon)*
+- [Borrowing in Rust](rust/borrowing.md)
+- [Lifetimes Explained](rust/lifetimes.md)
 
 ### Databases
 - [How Database Indexes Work](databases/indexing.md)
-- [Understanding Transactions](databases/transactions.md) *(coming soon)*
-- [B-Trees vs LSM Trees](databases/btree-vs-lsm.md) *(coming soon)*
+- [Understanding Transactions](databases/transactions.md)
+- [Database Replication](databases/replication.md)
 
 ### Web Development
-- [How REST APIs Work](web/rest-apis.md) *(coming soon)*
-- [Understanding CORS](web/cors-explained.md) *(coming soon)*
-
-### System Design
-- [Caching Strategies](systems/caching.md) *(coming soon)*
-- [Database Replication Patterns](systems/replication.md) *(coming soon)*
-
----
-
-## Recently Updated
-
-- [Understanding Python Async/Await](python/async-explained.md) — 2026-01-20
-- [Rust Ownership Model](rust/ownership-model.md) — 2026-01-18
-- [How Database Indexes Work](databases/indexing.md) — 2026-01-15
+- [How REST APIs Work](web/rest-apis.md)
+- [Understanding CORS](web/cors.md)
+- [Authentication Patterns](web/authentication.md)
 
 ---
 
@@ -54,4 +45,4 @@ These notes follow the [digital garden](https://maggieappleton.com/garden-histor
 
 ---
 
-*For code snippets and copy-pasteable solutions, check out [Snippets](../snippets/).*
+*For code snippets and copy-pasteable solutions, check out [Snippets](../snippets/index.md).*

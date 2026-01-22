@@ -6,11 +6,16 @@ Longer-form writing, reflections, and thoughts on technology, learning, and buil
 
 ### 2026
 
-**[Why I Built This Site](why-i-built-this-site.md)** — January 22, 2026  
+**[Why I Built This Site](2026-01-why-i-built-this.md)** — January 22, 2026  
 Reflecting on why I moved away from Medium and built my own digital garden. On ownership, simplicity, and learning in public.
 
-**[Migrating from Medium](migrating-from-medium.md)** — January 15, 2026  
-The practical steps I took to migrate my Medium posts to this site. Lessons learned about Markdown, static sites, and content ownership.
+**[Learning Rust in 2026](2026-01-learning-rust.md)** — January 2026  
+My journey into Rust and systems programming.
+
+### 2025
+
+**[Year in Review](2025-12-year-in-review.md)** — December 2025  
+Looking back at the year.
 
 ---
 
@@ -23,14 +28,4 @@ The practical steps I took to migrate my Medium posts to this site. Lessons lear
 
 ---
 
-## Subscribe
-
-Want to know when I publish something new? 
-
-- **RSS Feed:** [/feed.xml](/feed.xml) (You can add this later with a plugin)
-- **GitHub Watch:** Watch this [repository](https://github.com/yourusername/yourusername.github.io) for updates
-- **Email:** Send me a message and I'll let you know about major updates
-
----
-
-*These are longer, more polished pieces compared to my [Notes](../notes/), which are more raw and evolving.*
+*These are longer, more polished pieces compared to my [Notes](../notes/index.md), which are more raw and evolving.*

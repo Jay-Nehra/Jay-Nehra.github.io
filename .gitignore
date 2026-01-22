@@ -2,3 +2,6 @@ site/
 __pycache__/
 *.pyc
 .DS_Store
+
+# Personal maintenance notes (not for public)
+MAINTENANCE.md

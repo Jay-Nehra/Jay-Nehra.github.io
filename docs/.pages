@@ -1,0 +1,10 @@
+nav:
+  - Home: index.md
+  - About: about.md
+  - Portfolio: portfolio.md
+  - Resume: resume.md
+  - blog
+  - notes
+  - references
+  - concepts
+  - ...  # Auto-includes any other directories

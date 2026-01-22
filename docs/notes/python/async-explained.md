@@ -188,8 +188,7 @@ results = asyncio.run(fetch_all(urls))
 ## Related Notes
 
 - [Python Retry Decorator](../../snippets/python-retry-decorator.md) — Works with async too
-- [Understanding the GIL](../python-gil.md) — Why async doesn't bypass the GIL
-- [Async Database Queries](../databases/async-queries.md)
+- [Understanding the GIL](gil-explained.md) — Why async doesn't bypass the GIL
 
 ## Resources
 

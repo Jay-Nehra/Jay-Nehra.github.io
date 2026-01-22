@@ -1,49 +1,32 @@
 # About
 
-I’m an applied AI and data engineer with over five years of experience building production-grade systems, with recent focus on LLM-based applications and AI workflows.
+I'm an applied AI and data engineer with over five years of experience. My work focuses on building production systems for LLM-based applications—data pipelines, evaluation frameworks, and the operational tooling that keeps things running reliably.
 
-My background spans data engineering, backend systems, and applied machine learning. Over time, my work has shifted toward building end-to-end AI systems, but the surrounding pipelines, evaluation frameworks, and operational tooling that make them reliable in production.
+My background spans data engineering, backend systems, and applied machine learning. Most of my recent work has been on end-to-end AI systems: not just the models, but the surrounding infrastructure that makes them useful.
 
-I enjoy working close to real problems: translating ambiguous business logic into systems that can evolve, scale, and be understood by the people who maintain them.
+## How I approach work
 
-## How I work
+A few things I try to keep in mind:
 
-A few principles that guide how I approach engineering:
-
-- **Systems over demos** — prototypes are easy; production systems require discipline.
-- **Evaluation matters** — if you can’t measure it, you can’t improve it.
-- **Data is the product** — models reflect the data and workflows around them.
-- **Clarity beats cleverness** — especially in long-lived codebases.
-
-I’m comfortable moving between:
-- hands-on implementation
-- system design
-- collaboration with product and domain experts
+- **Systems over demos** — Prototypes are straightforward; production systems require discipline.
+- **Evaluation matters** — If we can't measure it, we can't improve it.
+- **Data shapes everything** — Models reflect the data and workflows around them.
+- **Clarity over cleverness** — Especially in code that others will maintain.
 
 ## This site
 
-This website doubles as:
-- a personal knowledge base
-- a public learning log
-- a portfolio of ideas and systems
+This website is primarily a personal system—a place to keep notes, references, and learning material organized. I moved away from platforms like Notion and Medium to have something I control directly.
 
-Not everything here is polished. Some notes are rough by design.
-They exist to capture understanding, not to perform.
+It also serves as a professional presence. The resume and portfolio sections are for anyone interested in my work.
 
+Not everything here is polished. Some notes are rough drafts. They exist to capture understanding, not to impress.
 
-## Get in Touch
-
-I'm always happy to chat about:
-- Technical questions or collaboration
-- Interesting problems you're solving
-- Book recommendations or what you're learning
-
-**Contact:**
+## Contact
 
 - GitHub: [@Jay-Nehra](https://github.com/Jay-Nehra)
 - LinkedIn: [Jayant Nehra](https://linkedin.com/in/jayant-nehra)
-- Email: [GMail](nj.nehra@gmail.com)
+- Email: [nj.nehra@gmail.com](mailto:nj.nehra@gmail.com)
 
 ---
 
-*Last updated: January 22, 2026*
+*Last updated: January 2026*

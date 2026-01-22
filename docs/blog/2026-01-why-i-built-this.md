@@ -85,11 +85,6 @@ If you're thinking about building your own site:
 
 ---
 
-## Related
-
-- [Migrating from Medium](migrating-from-medium.md)
-- [Notes: How I Structure This Site](../notes/site-structure.md)
-
 ---
 
-*Questions or thoughts? [Get in touch](../about.md#get-in-touch).*
+*Questions or thoughts? [Get in touch](../about.md#contact).*

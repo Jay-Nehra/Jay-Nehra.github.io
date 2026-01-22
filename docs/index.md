@@ -1,32 +1,39 @@
-# Welcome
+# Jayant Nehra
 
-I’m **Jayant Nehra** — an applied AI and data engineer who builds production systems, learns in public, and writes things down so I don’t have to rediscover them later.
+Applied AI and data engineer based in India. I work on LLM-based applications, data pipelines, and the systems that support them in production.
 
-This site is a personal workspace:
-a mix of notes, experiments, and longer-form writing about systems, data, and applied AI.
+This site is where I keep notes, reference material, and longer writings. It also serves as a professional presence for anyone who wants to learn more about my work.
 
-## What you’ll find here
+---
 
-- **[About](about.md)** — who I am and how I think about engineering
-- **[Portfolio](portfolio.md)** — hobby projects that I am building
-- **[Resume](resume.md)** — Professional experience and skills 
-- **[Blog](blog/)** — longer-form writings
-- **[Notes](notes/)** — technical explanations and learning notes
-- **[Snippets](snippets/)** — small pieces of code I reuse
+## Sections
 
-## Current focus
+**[About](about.md)** — Background and how to get in touch
 
-- Applied AI systems and LLM-based workflows  
-- Data pipelines and ML platforms  
-- Retrieval, evaluation, and observability in production AI  
-- Writing clearer explanations of complex systems
+**[Portfolio](portfolio.md)** — Projects I've worked on
 
-## Recent Updates
+**[Resume](resume.md)** — Professional experience
 
-## Get in Touch
+**[Blog](blog/index.md)** — Occasional longer-form writing
+
+**[Notes](notes/index.md)** — Learning notes organized by topic
+
+**[References](references/index.md)** — Deep-dive guides on Python libraries and tools
+
+**[Concepts](concepts/index.md)** — Core concepts for AI engineering
+
+---
+
+## Current Focus
+
+- Production AI systems and agentic workflows
+- Data platforms and ML pipelines
+- Evaluation and observability for LLM applications
+
+---
+
+## Contact
 
 - GitHub: [@Jay-Nehra](https://github.com/Jay-Nehra)
 - LinkedIn: [Jayant Nehra](https://linkedin.com/in/jayant-nehra)
-- Email: [GMail](nj.nehra@gmail.com)
-
----
+- Email: [nj.nehra@gmail.com](mailto:nj.nehra@gmail.com)

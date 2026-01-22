@@ -1,6 +1,6 @@
 # Resume
 
-**[Download PDF Version](/assets/Jayant_Nehra_resume.pdf)**
+**[Download PDF Version](assets/Jayant_Nehra_resume.pdf)**
 
 ---
 
@@ -25,7 +25,7 @@ Strong background in Python, SQL, Databricks, and cloud platforms, with hands-on
 - Designed and implemented agentic AI workflows, including MCP servers and AI agents orchestrating actions across internal APIs.
 - Defined observability and evaluation standards covering model quality, data drift, and pipeline reliability.
 
-**Technologies:** Python, Databricks, Polars, AWS (Bedrock AgentCore), FastAPI, ElasticSearch, LangChain, MCP, Arize AI
+**Technologies:** Python, Databricks, Polars, AWS (Bedrock AgentCore), FastAPI, ElasticSearch, LangChain, Strands Agent SDK, MCP, Arize AI
 
 ---
 
@@ -90,5 +90,5 @@ Strong background in Python, SQL, Databricks, and cloud platforms, with hands-on
 
 ## Certifications
 
-- **Microsoft Certified: Azure AI Engineer Associate**  
-- **Data Engineering by DeepLearning.AI (AWS)**
+- **Microsoft Certified: Azure AI Engineer Associate** — [View Certification](https://learn.microsoft.com/en-us/users/jayantnehra-2099/credentials/)
+- **Data Engineering by DeepLearning.AI (AWS)** — [View Certification](https://www.coursera.org/account/accomplishments/professional-cert/CZ7KNVRMMQYX)

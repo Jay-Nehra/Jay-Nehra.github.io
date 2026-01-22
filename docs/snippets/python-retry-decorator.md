@@ -184,7 +184,6 @@ But for simple cases, this snippet is enough.
 ## Related
 
 - [Understanding Python Async/Await](../notes/python/async-explained.md)
-- [Handling API Rate Limits](../notes/api-rate-limiting.md)
 
 ---
 

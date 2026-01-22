@@ -4,7 +4,7 @@ Working code that I've written and will need again. Copy-paste ready solutions t
 
 ## What's Here
 
-Unlike my [Notes](../notes/), which explain concepts, these are practical code snippets with:
+Unlike my [Notes](../notes/index.md), which explain concepts, these are practical code snippets with:
 
 - **Working, tested code** that you can copy-paste
 - **Problem statement** explaining what it solves
@@ -15,33 +15,16 @@ Unlike my [Notes](../notes/), which explain concepts, these are practical code s
 
 ### Python
 - [Retry Decorator with Exponential Backoff](python-retry-decorator.md)
-- [Async HTTP Requests in Batch](python-async-batch-requests.md) *(coming soon)*
-- [Context Manager for Database Connections](python-db-context-manager.md) *(coming soon)*
-- [Logging Setup with Rotation](python-logging-setup.md) *(coming soon)*
+- [Async HTTP Requests](python-async-requests.md)
 
 ### SQL
 - [Recursive CTE for Hierarchical Data](sql-recursive-cte.md)
-- [Window Functions for Running Totals](sql-window-functions.md) *(coming soon)*
-- [Efficient Pagination Query](sql-pagination.md) *(coming soon)*
 
 ### Bash
-- [Find Large Files](bash-find-large-files.md) *(coming soon)*
-- [Backup Script with Rotation](bash-backup-script.md) *(coming soon)*
-
-### JavaScript
-- [Debounce Function](javascript-debounce.md) *(coming soon)*
-- [Deep Clone Object](javascript-deep-clone.md) *(coming soon)*
+- [Find Files by Pattern](bash-find-files.md)
 
 ### Rust
-- [Error Handling with Custom Types](rust-error-handling.md) *(coming soon)*
-- [Simple HTTP Server](rust-http-server.md) *(coming soon)*
-
----
-
-## Recently Added
-
-- [Python Retry Decorator](python-retry-decorator.md) — 2026-01-15
-- [SQL Recursive CTE](sql-recursive-cte.md) — 2026-01-10
+- [Error Handling with Custom Types](rust-error-handling.md)
 
 ---
 
@@ -54,4 +37,4 @@ Unlike my [Notes](../notes/), which explain concepts, these are practical code s
 
 ---
 
-*For deeper explanations of concepts, see my [Notes](../notes/).*
+*For deeper explanations of concepts, see my [Notes](../notes/index.md).*
