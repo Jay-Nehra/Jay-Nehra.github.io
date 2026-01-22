@@ -29,7 +29,6 @@ jobs:
             mkdocs-material \
             pymdown-extensions \
             mkdocs-awesome-pages-plugin \
-            mkdocs-tags-plugin \
             mkdocs-git-revision-date-localized-plugin
 
       - name: Build and deploy
