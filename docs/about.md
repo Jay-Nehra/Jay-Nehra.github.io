@@ -1,59 +1,35 @@
-# About Me
+# About
 
-Hi, I'm **Jayant Nehra** — a developer who enjoys solving problems with code and learning how systems work.
+I’m an applied AI and data engineer with over five years of experience building production-grade systems, with recent focus on LLM-based applications and AI workflows.
 
-## What I Do
+My background spans data engineering, backend systems, and applied machine learning. Over time, my work has shifted toward building end-to-end AI systems, but the surrounding pipelines, evaluation frameworks, and operational tooling that make them reliable in production.
 
-I'm currently working as a [Your Role] at [Your Company], where I focus on:
+I enjoy working close to real problems: translating ambiguous business logic into systems that can evolve, scale, and be understood by the people who maintain them.
 
-- Building backend systems and APIs
-- Working with Python, Rust, and databases
-- Solving performance and scalability challenges
-- Writing clean, maintainable code
+## How I work
 
-## Background
+A few principles that guide how I approach engineering:
 
-I got into programming because [your reason - maybe solving a specific problem, curiosity, etc.]. Since then, I've been fascinated by [areas of interest - systems programming, web development, databases, etc.].
+- **Systems over demos** — prototypes are easy; production systems require discipline.
+- **Evaluation matters** — if you can’t measure it, you can’t improve it.
+- **Data is the product** — models reflect the data and workflows around them.
+- **Clarity beats cleverness** — especially in long-lived codebases.
 
-My journey includes:
+I’m comfortable moving between:
+- hands-on implementation
+- system design
+- collaboration with product and domain experts
 
-- **[Year]** — Started learning to code with [language/technology]
-- **[Year]** — Built my first [project type]
-- **[Year]** — Joined [Company/Project] as [Role]
-- **[Year]** — Currently exploring [Current Learning Focus]
+## This site
 
-## What I'm Interested In
+This website doubles as:
+- a personal knowledge base
+- a public learning log
+- a portfolio of ideas and systems
 
-**Technical interests:**
-- Systems programming and performance optimization
-- Database internals and query optimization
-- Distributed systems and reliability
-- Clean code and software architecture
+Not everything here is polished. Some notes are rough by design.
+They exist to capture understanding, not to perform.
 
-**Beyond code:**
-- Teaching and mentoring other developers
-- Open source contributions
-- Technical writing and documentation
-- [Your hobbies - hiking, reading, music, etc.]
-
-## This Website
-
-I built this site to:
-
-1. **Migrate my writing** from Medium and other platforms
-2. **Learn in public** by sharing notes and discoveries
-3. **Build a second brain** of code snippets and solutions
-4. **Have a home on the internet** that I control
-
-It's a [digital garden](https://maggieappleton.com/garden-history) — notes that grow over time rather than polished blog posts.
-
-## Technologies I Use
-
-**Languages:** Python, Rust, JavaScript/TypeScript, SQL, Bash  
-**Frameworks:** Flask/FastAPI, React, Node.js  
-**Databases:** PostgreSQL, Redis, MongoDB  
-**Tools:** Docker, Git, Linux, VS Code  
-**Cloud:** AWS, GCP (or whatever you use)
 
 ## Get in Touch
 

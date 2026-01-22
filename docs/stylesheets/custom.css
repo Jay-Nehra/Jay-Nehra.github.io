@@ -19,14 +19,18 @@
 
 /* ---------- Warm parchment (retro, higher contrast) ---------- */
 [data-md-color-scheme="parchment-warm"] {
-  --md-default-bg-color: #f3ecd9;
-  --md-default-fg-color: #2f2a22;
+  --md-default-bg-color: #eddcae;
+  --md-default-fg-color: #1a1a1a;
 
-  --md-typeset-a-color: #8a6f2f;    /* brass */
-  --md-accent-fg-color: #8a6f2f;
+  --md-primary-bg-color: #eddcae;
+  --md-primary-fg-color: #1a1a1a;
 
-  --md-code-bg-color: #e7dcc4;
+  --md-typeset-a-color: #8c6d1f;    /* brass */
+  --md-accent-fg-color: #7a5f22;
+
+  --md-code-bg-color: #e5d29a;
 }
+
 
 /* ---------- Ink dark (warm, non-slate) ---------- */
 [data-md-color-scheme="ink-dark"] {
@@ -36,8 +40,27 @@
   --md-typeset-a-color: #d6b25e;    /* amber */
   --md-accent-fg-color: #d6b25e;
 
-  --md-code-bg-color: #26231e;
+  --md-code-bg-color: #49433a;
 }
+
+/* ---------- Solarized teal (cool, calm, high-contrast) ---------- */
+[data-md-color-scheme="solarized-teal"] {
+  --md-default-bg-color: #123442;   /* deep teal */
+  --md-default-fg-color: #f5f9fa;   /* light ink */
+
+  --md-typeset-color: #f5f9fa;
+  --md-typeset-heading-color: #f5f9fa;
+
+  --md-primary-bg-color: #123442;
+  --md-primary-fg-color: #a8b8bc;
+
+  --md-typeset-a-color: #eee277;    /* warm yellow links */
+  --md-accent-fg-color: #f6f6f6;
+
+  --md-code-bg-color: #1b3f4e;
+}
+
+
 
 /* ============================================
    Remove motion
@@ -82,13 +105,18 @@
 }
 
 /* ============================================
-   Typography: prose-first
+   Typography: prose-first 
    ============================================ */
 .md-typeset {
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: 0.98rem;
+  line-height: 1.65;
   color: var(--md-default-fg-color);
 }
+
+.md-typeset {
+  color: var(--md-default-fg-color);
+}
+
 
 /* Fullscreen = reading desk */
 @media (min-width: 1200px) {
@@ -120,6 +148,15 @@
 [data-md-color-scheme="ink-dark"] .md-typeset h4 {
   color: #f1e6cf;
 }
+
+/* Fix heading visibility for solarized-teal */
+[data-md-color-scheme="solarized-teal"] .md-typeset h1,
+[data-md-color-scheme="solarized-teal"] .md-typeset h2,
+[data-md-color-scheme="solarized-teal"] .md-typeset h3,
+[data-md-color-scheme="solarized-teal"] .md-typeset h4 {
+  color: #f5f9fa;
+}
+
 
 .md-typeset h2 {
   border-bottom: 1px solid #e0dacb;
@@ -280,3 +317,57 @@
   opacity: 1;
 }
 
+
+/* ============================================
+   Code syntax fixes for dark palettes
+   ============================================ */
+
+/* Base code text */
+[data-md-color-scheme="ink-dark"] .highlight,
+[data-md-color-scheme="solarized-teal"] .highlight {
+  color: #e6ddc8;
+}
+
+/* Keywords */
+[data-md-color-scheme="ink-dark"] .highlight .k,
+[data-md-color-scheme="ink-dark"] .highlight .kd,
+[data-md-color-scheme="solarized-teal"] .highlight .k,
+[data-md-color-scheme="solarized-teal"] .highlight .kd {
+  color: #f6c177;
+}
+
+/* Strings */
+[data-md-color-scheme="ink-dark"] .highlight .s,
+[data-md-color-scheme="ink-dark"] .highlight .s1,
+[data-md-color-scheme="solarized-teal"] .highlight .s,
+[data-md-color-scheme="solarized-teal"] .highlight .s1 {
+  color: #9fd3c7;
+}
+
+/* Comments */
+[data-md-color-scheme="ink-dark"] .highlight .c,
+[data-md-color-scheme="ink-dark"] .highlight .c1,
+[data-md-color-scheme="solarized-teal"] .highlight .c,
+[data-md-color-scheme="solarized-teal"] .highlight .c1 {
+  color: #8a8a8a;
+  font-style: italic;
+}
+
+/* Numbers */
+[data-md-color-scheme="ink-dark"] .highlight .m,
+[data-md-color-scheme="solarized-teal"] .highlight .m {
+  color: #d6b25e;
+}
+
+/* ============================================
+   Fix dimmed code blocks in dark palettes
+   ============================================ */
+
+[data-md-color-scheme="ink-dark"] .md-typeset pre,
+[data-md-color-scheme="ink-dark"] .md-typeset code,
+[data-md-color-scheme="ink-dark"] .highlight,
+[data-md-color-scheme="solarized-teal"] .md-typeset pre,
+[data-md-color-scheme="solarized-teal"] .md-typeset code,
+[data-md-color-scheme="solarized-teal"] .highlight {
+  opacity: 1 !important;
+}

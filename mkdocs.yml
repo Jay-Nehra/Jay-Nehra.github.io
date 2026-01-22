@@ -11,7 +11,7 @@ edit_uri: edit/main/docs/
 theme:
   name: material
 
-  # Three deliberate reading modes
+  # Four deliberate reading modes
   palette:
     - scheme: parchment
       primary: custom
@@ -19,20 +19,28 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Parchment
-
+  
     - scheme: parchment-warm
       primary: custom
       accent: custom
       toggle:
         icon: material/brightness-5
         name: Warm parchment
-
+  
+    - scheme: solarized-teal
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/waves
+        name: Solarized
+  
     - scheme: ink-dark
       primary: custom
       accent: custom
       toggle:
         icon: material/weather-night
         name: Dark
+  
 
   features:
     - navigation.tabs

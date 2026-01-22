@@ -1,130 +1,94 @@
 # Resume
 
-**[Download PDF Version](docs/assets/Jayant_Nehra_resume.pdf)**
-
----
-
-## Your Name
-**Software Developer | Backend Engineer | [Your Specialty]**
-
-📧 your.email@example.com  
-🔗 [GitHub](https://github.com/yourusername) | [LinkedIn](https://linkedin.com/in/yourusername)  
-🌐 [yourwebsite.com](https://yourusername.github.io)
+**[Download PDF Version](/assets/Jayant_Nehra_resume.pdf)**
 
 ---
 
 ## Summary
 
-Experienced software developer specializing in [your focus area]. Passionate about building scalable systems, writing clean code, and solving complex technical challenges. [1-2 more sentences about what makes you unique or what you're focused on.]
+Applied AI and Data Engineer with 5+ years of experience building production-grade AI systems and data pipelines, with recent focus on LLM-based applications.
+
+Strong background in Python, SQL, Databricks, and cloud platforms, with hands-on experience across data curation, embedding pipelines, model evaluation, retrieval-augmented generation (RAG), and agentic workflows. Experienced in translating evolving business requirements into scalable, maintainable AI systems through close collaboration with product and domain experts.
 
 ---
 
-## Experience
+## Work Experience
 
-### Senior Backend Developer
-**Company Name** | City, Country | Jan 2023 - Present
+### Applied AI Engineer — KornFerry (Contract)  
+*Mar 2025 – Present | Remote*
 
-- Built and maintained RESTful APIs serving 1M+ requests/day
-- Optimized database queries, reducing response time by 60%
-- Implemented caching strategies using Redis, improving throughput
-- Mentored junior developers and conducted code reviews
-- Technologies: Python, FastAPI, PostgreSQL, Docker, AWS
+- Rebuilt the end-to-end job standardization pipeline (training, inference, and post-processing) used to map external job data to an evolving internal job architecture across multiple production products.
+- Led large-scale training data cleanup and validation, identifying and correcting ~40% noisy or inconsistent historical mappings and improving Top-5 prediction accuracy from 68% to 92%.
+- Designed and maintained a Databricks-based ML data platform supporting automated workflows for data preparation, training, evaluation, versioning, and deployment.
+- Built a configuration-driven embedding model evaluation framework for benchmarking clustering, classification, and retrieval tasks with automated metrics and reports.
+- Improved search performance across two products, reducing end-to-end latency from ~2 minutes to sub-second responses.
+- Designed and implemented agentic AI workflows, including MCP servers and AI agents orchestrating actions across internal APIs.
+- Defined observability and evaluation standards covering model quality, data drift, and pipeline reliability.
 
-### Software Developer
-**Previous Company** | City, Country | Jun 2020 - Dec 2022
+**Technologies:** Python, Databricks, Polars, AWS (Bedrock AgentCore), FastAPI, ElasticSearch, LangChain, MCP, Arize AI
 
-- Developed microservices for e-commerce platform
-- Migrated legacy monolith to distributed architecture
-- Implemented CI/CD pipelines reducing deployment time by 50%
-- Collaborated with cross-functional teams on feature development
-- Technologies: Python, Flask, MongoDB, Kubernetes
+---
 
-### Junior Developer
-**First Company** | City, Country | Jan 2019 - May 2020
+### Technical Lead — FiftyFive Technologies  
+*Aug 2022 – Mar 2025 | Remote*
 
-- Built internal tools and automation scripts
-- Fixed bugs and implemented new features
-- Wrote technical documentation
-- Technologies: Python, JavaScript, SQL
+- Led end-to-end AI and data projects spanning data platforms, LLM-based applications, and client-facing AI integrations.
+- Built analytical data platforms on Google BigQuery and developed Looker Studio dashboards for analytics and reporting.
+- Designed and deployed LLM-powered applications including natural-language-to-SQL assistants and document-driven AI systems.
+- Implemented RAG pipelines and vector-based retrieval systems using LangChain and LlamaIndex.
+- Built large-scale unstructured text processing pipelines, reducing storage footprint by 55% and improving retrieval performance.
+- Led dataset curation and synthetic data generation for multilingual and domain-specific LLM training.
+- Transitioned into a technical leadership role, owning solution architecture, estimation, delivery, and mentorship.
+
+**Technologies:** Python, SQL, BigQuery, Looker Studio, LangChain, Vector Databases, RAG, LLM APIs
+
+---
+
+### Senior Software Developer — Prodapt  
+*Jun 2021 – Aug 2022 | Remote*
+
+- Developed backend microservices for a network assurance and monitoring platform.
+- Built real-time data ingestion pipelines using Kafka and Apache Pulsar.
+- Implemented graph-based data modeling using Neo4j for network topology analysis.
+- Deployed observability dashboards with Grafana.
+- Contributed to containerized deployments using Kubernetes.
+
+**Technologies:** Microservices, Kafka, Apache Pulsar, Neo4j, Kubernetes, Grafana
+
+---
+
+### System Analyst — Amdocs  
+*May 2014 – May 2015 | Pune, India*
+
+- Supported phased migration of a large telecom service database to an upgraded Oracle platform.
+- Assisted with data validation and schema verification using Informatica and SQL.
+- Developed Python and shell scripts to automate post-migration data quality checks.
+- Participated in production support during scheduled migration windows.
+
+**Technologies:** Oracle Database, Informatica, SQL, Python, Bash
 
 ---
 
 ## Education
 
-### Bachelor of Science in Computer Science
-**University Name** | City, Country | 2015 - 2019
-
-- Relevant coursework: Algorithms, Data Structures, Databases, Operating Systems
-- GPA: 3.8/4.0 (optional)
-- Notable projects: [Brief mention of 1-2 significant projects]
+- **MS, Artificial Intelligence** — Warsaw University of Technology, Poland (2020)
+- **BTech, Computer Engineering** — SVNIT Surat, India (2014)
 
 ---
 
-## Technical Skills
+## Skills
 
-**Languages:** Python, Rust, JavaScript/TypeScript, SQL, Bash  
-**Backend Frameworks:** FastAPI, Flask, Node.js, Express  
-**Databases:** PostgreSQL, Redis, MongoDB, SQLite  
-**DevOps & Tools:** Docker, Kubernetes, Git, GitHub Actions, AWS, Linux  
-**Frontend:** React, HTML/CSS (basic proficiency)  
-**Other:** REST APIs, GraphQL, Microservices, Testing (pytest, Jest)
-
----
-
-## Projects
-
-### [Project Name](https://github.com/yourusername/project)
-Brief description of what you built and why it's impressive. Mention scale, impact, or technical challenges.  
-**Technologies:** Python, FastAPI, PostgreSQL
-
-### [Another Project](https://github.com/yourusername/project)
-Description of another significant project.  
-**Technologies:** Rust, Tokio, SQLite
-
-*See more in my [Portfolio](portfolio.md)*
+- **Languages:** Python, SQL  
+- **Applied AI & LLM Systems:** LangChain, RAG, Embeddings, Agentic AI, MCP, Model Evaluation, Arize AI  
+- **Data Platforms:** Databricks, Google BigQuery, Snowflake  
+- **Cloud & AI Platforms:** AWS (Bedrock AgentCore, Lambda, S3, DynamoDB, SNS, SQS), Azure AI  
+- **Data Processing:** Pandas, Polars, ELT, Data Pipelines, dlt  
+- **Databases & Search:** PostgreSQL, Oracle, ElasticSearch, Vector Databases, Neo4j  
+- **Backend & Systems:** FastAPI, Microservices, Docker, GitHub Actions, Linux
 
 ---
 
 ## Certifications
 
-**AWS Certified Developer - Associate** | Amazon Web Services | 2022  
-**Professional Scrum Master I** | Scrum.org | 2021
-
-*(Remove this section if you don't have certifications)*
-
----
-
-## Awards & Recognition
-
-- Employee of the Quarter, Company Name (Q3 2023)
-- Best Hackathon Project, Company Hackathon (2022)
-
-*(Remove this section if not applicable)*
-
----
-
-## Open Source Contributions
-
-- **[Popular Project](https://github.com/org/project)** — Contributed feature X
-- **[Another Project](https://github.com/org/project)** — Fixed critical bug in Y
-
----
-
-## Languages
-
-**English:** Native/Fluent  
-**[Other Language]:** Professional working proficiency  
-**[Another Language]:** Basic
-
-*(Remove if only one language)*
-
----
-
-## Interests
-
-When I'm not coding: hiking, reading technical books, contributing to open source, building side projects, [your hobbies].
-
----
-
-*Last updated: January 22, 2026*  
-*For a PDF version or references, please [contact me](about.md#get-in-touch).*
+- **Microsoft Certified: Azure AI Engineer Associate**  
+- **Data Engineering by DeepLearning.AI (AWS)**
