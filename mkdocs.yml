@@ -1,0 +1,114 @@
+site_name: Jayant Nehra
+site_description: Developer, learner, writer
+site_author: Jayant Nehra
+site_url: https://Jay-Nehra.github.io/
+
+# Repository
+repo_url: https://github.com/Jay-Nehra/Jay-Nehra.github.io
+repo_name: Jay-Nehra.github.io
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+
+  # Three deliberate reading modes
+  palette:
+    - scheme: parchment
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Parchment
+
+    - scheme: parchment-warm
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-5
+        name: Warm parchment
+
+    - scheme: ink-dark
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Dark
+
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Portfolio: portfolio.md
+  - Resume: resume.md
+  - Blog:
+      - blog/index.md
+      - blog/migrating-from-medium.md
+      - blog/why-i-built-this-site.md
+  - Notes:
+      - notes/index.md
+      - Python:
+          - notes/python/async-explained.md
+          - notes/python/decorators.md
+      - Rust:
+          - notes/rust/ownership-model.md
+      - Databases:
+          - notes/databases/indexing.md
+  - Snippets:
+      - snippets/index.md
+      - snippets/python-retry-decorator.md
+      - snippets/sql-recursive-cte.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - admonition
+  - pymdownx.details
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - footnotes
+  - pymdownx.magiclink
+
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - tags
+
+extra_css:
+  - stylesheets/custom.css
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Jay-Nehra
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/jayant-nehra
+
+copyright:
+  Copyright © 2026 Jayant Nehra

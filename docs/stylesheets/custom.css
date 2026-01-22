@@ -1,0 +1,282 @@
+/* ============================================
+   Parchment-first reading theme
+   ============================================ */
+
+/* ---------- Parchment (default) ---------- */
+[data-md-color-scheme="parchment"] {
+  --md-default-bg-color: #f6f2e9;   /* light sand */
+  --md-default-fg-color: #3f3a32;   /* warm ink */
+
+  --md-typeset-a-color: #6b5a2e;    /* muted ochre */
+  --md-accent-fg-color: #6b5a2e;
+
+  --md-code-bg-color: #eee6d6;
+
+  --md-shadow-z1: none;
+  --md-shadow-z2: none;
+  --md-shadow-z3: none;
+}
+
+/* ---------- Warm parchment (retro, higher contrast) ---------- */
+[data-md-color-scheme="parchment-warm"] {
+  --md-default-bg-color: #f3ecd9;
+  --md-default-fg-color: #2f2a22;
+
+  --md-typeset-a-color: #8a6f2f;    /* brass */
+  --md-accent-fg-color: #8a6f2f;
+
+  --md-code-bg-color: #e7dcc4;
+}
+
+/* ---------- Ink dark (warm, non-slate) ---------- */
+[data-md-color-scheme="ink-dark"] {
+  --md-default-bg-color: #1c1a17;
+  --md-default-fg-color: #e6ddc8;
+
+  --md-typeset-a-color: #d6b25e;    /* amber */
+  --md-accent-fg-color: #d6b25e;
+
+  --md-code-bg-color: #26231e;
+}
+
+/* ============================================
+   Remove motion
+   ============================================ */
+* {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* ============================================
+   Header / nav / footer (integrated)
+   ============================================ */
+.md-header,
+.md-tabs,
+.md-footer {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  box-shadow: none;
+  border: none;
+}
+
+.md-tabs {
+  border-bottom: 1px solid #e0dacb;
+}
+
+[data-md-color-scheme="ink-dark"] .md-tabs {
+  border-bottom-color: #333;
+}
+
+.md-header__title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.md-tabs__link {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.md-tabs__link--active {
+  opacity: 1;
+}
+
+/* ============================================
+   Typography: prose-first
+   ============================================ */
+.md-typeset {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--md-default-fg-color);
+}
+
+/* Fullscreen = reading desk */
+@media (min-width: 1200px) {
+  .md-typeset {
+    max-width: 68ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Split screen = fluid */
+@media (max-width: 1199px) {
+  .md-typeset {
+    max-width: none;
+  }
+}
+
+/* Headings */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  color: #2e2a23;
+}
+
+[data-md-color-scheme="ink-dark"] .md-typeset h1,
+[data-md-color-scheme="ink-dark"] .md-typeset h2,
+[data-md-color-scheme="ink-dark"] .md-typeset h3,
+[data-md-color-scheme="ink-dark"] .md-typeset h4 {
+  color: #f1e6cf;
+}
+
+.md-typeset h2 {
+  border-bottom: 1px solid #e0dacb;
+  padding-bottom: 0.3rem;
+}
+
+[data-md-color-scheme="ink-dark"] .md-typeset h2 {
+  border-bottom-color: #333;
+}
+
+/* Paragraphs */
+.md-typeset p {
+  margin-bottom: 1.2rem;
+}
+
+/* Links */
+.md-typeset a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ============================================
+   Code
+   ============================================ */
+.md-typeset code {
+  background-color: var(--md-code-bg-color);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.md-typeset pre {
+  background-color: var(--md-code-bg-color);
+  border-left: 3px solid var(--md-typeset-a-color);
+  padding: 1rem;
+}
+
+.md-typeset pre code {
+  background: none;
+  padding: 0;
+}
+
+/* ============================================
+   Lists
+   ============================================ */
+.md-typeset ul,
+.md-typeset ol {
+  margin-left: 1.5rem;
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+.md-typeset table:not([class]) {
+  border-collapse: collapse;
+  border: 1px solid #d6d0c4;
+}
+
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  padding: 0.75rem;
+  border: 1px solid #d6d0c4;
+}
+
+[data-md-color-scheme="ink-dark"]
+.md-typeset table:not([class]) th,
+[data-md-color-scheme="ink-dark"]
+.md-typeset table:not([class]) td {
+  border-color: #444;
+}
+
+/* ============================================
+   Admonitions (margin-note feel)
+   ============================================ */
+.md-typeset .admonition {
+  border-left: 3px solid var(--md-typeset-a-color);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ============================================
+   Sidebar
+   ============================================ */
+.md-nav {
+  font-size: 0.85rem;
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.md-footer {
+  border-top: 1px solid #e0dacb;
+}
+
+[data-md-color-scheme="ink-dark"] .md-footer {
+  border-top-color: #333;
+}
+
+
+/* ============================================
+   FORCE DESKTOP LAYOUT (disable mobile behavior)
+   EXPERIMENTAL – reversible
+   ============================================ */
+
+/* Always show top tabs */
+.md-tabs {
+  display: block !important;
+}
+
+/* Hide ONLY the hamburger menu (drawer toggle) */
+.md-header__button.md-icon[for="__drawer"] {
+  display: none !important;
+}
+
+
+/* Always show primary navigation sidebar */
+.md-sidebar--primary {
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* Always show table of contents sidebar */
+.md-sidebar--secondary {
+  display: block !important;
+}
+
+/* Disable drawer behavior */
+.md-overlay {
+  display: none !important;
+}
+
+/* Prevent content from resizing as if mobile */
+.md-main__inner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+/* ============================================
+   Right-hand ToC readability fixes
+   ============================================ */
+
+/* Default ToC links */
+.md-nav--secondary .md-nav__link {
+  color: var(--md-default-fg-color);
+  opacity: 0.75;
+}
+
+/* Hover + active states */
+.md-nav--secondary .md-nav__link:hover,
+.md-nav--secondary .md-nav__link--active {
+  color: var(--md-typeset-a-color);
+  opacity: 1;
+}
+
