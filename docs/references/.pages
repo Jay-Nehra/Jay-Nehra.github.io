@@ -1,10 +1,13 @@
 title: References
 nav:
   - index.md
+  - api
+  - llm
+  - databases
+  - data
   - agents
   - config
   - serialization
   - filesystem
   - http
   - cli
-  - ...

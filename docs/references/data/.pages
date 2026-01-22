@@ -1,0 +1,7 @@
+title: Data
+nav:
+  - text-data-engineering.md
+  - data-profiling.md
+  - data-cleaning.md
+  - quality-validation.md
+  - correction-strategies.md
