@@ -14,7 +14,7 @@ How AI agents work—tools, memory, orchestration patterns. Relevant for LangCha
 
 ## What is an "agent" vs a "chain"?
 
-**What they're really asking**: Do we understand the architectural distinction?
+Do we understand the architectural distinction?
 
 **Chain**: A fixed sequence of operations. Deterministic flow.
 ```
@@ -48,7 +48,7 @@ The path is determined at runtime by the LLM.
 
 ## How does tool calling work?
 
-**What they're really asking**: Do we understand the function calling interface?
+Do we understand the function calling interface?
 
 **The mechanism**:
 
@@ -98,7 +98,7 @@ response = client.chat.completions.create(
 
 ## What's the ReAct pattern?
 
-**What they're really asking**: Do we know the foundational agent architecture?
+Do we know the foundational agent architecture?
 
 **ReAct = Reasoning + Acting**
 
@@ -135,7 +135,7 @@ Answer: The population of Paris, the capital of France, is approximately 2.1 mil
 
 ## How do we handle agent failures gracefully?
 
-**What they're really asking**: Do we build robust systems?
+Do we build robust systems?
 
 **Failure modes**:
 
@@ -184,7 +184,7 @@ with timeout(seconds=60):
 
 ## What's the memory problem in agents?
 
-**What they're really asking**: Do we understand state management in LLM applications?
+Do we understand state management in LLM applications?
 
 **The problem**: LLMs are stateless. Each API call starts fresh. How do we maintain conversation history, learned facts, or long-term context?
 
@@ -217,7 +217,7 @@ with timeout(seconds=60):
 
 ## How does MCP (Model Context Protocol) fit in?
 
-**What they're really asking**: Do we understand the emerging tool ecosystem?
+Do we understand the emerging tool ecosystem?
 
 **The problem MCP solves**: Every application has its own way of exposing tools to LLMs. No standard protocol.
 
@@ -250,7 +250,7 @@ LLM Framework (Claude, LangChain, Strands)
 
 ## When should we use agents vs deterministic workflows?
 
-**What they're really asking**: Do we have good judgment about architecture?
+Do we have good judgment about architecture?
 
 **Use deterministic workflows when**:
 - The task has a known, fixed structure
@@ -284,7 +284,7 @@ operations              for one complex step     everything
 
 ## How do we test agent-based systems?
 
-**What they're really asking**: Do we build production-quality AI?
+Do we build production-quality AI?
 
 **The challenge**: Agents are non-deterministic. Same input can produce different tool sequences.
 

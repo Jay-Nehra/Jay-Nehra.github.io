@@ -9,7 +9,7 @@ tags:
 
 # Strands Agents: Complete Systems Architecture
 
-A deep architectural reference for building production AI agents with the Strands Agents SDK. This document focuses on understanding how the system works at a fundamental level—the mental models, data flows, and design decisions that shape everything we build.
+This document focuses on understanding how the system works at a fundamental level—the mental models, data flows, and design decisions that shape everything we build.
 
 ---
 

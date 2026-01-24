@@ -14,7 +14,7 @@ How LLM-powered applications work. The architecture, patterns, and tradeoffs we 
 
 ## What's the difference between a system prompt and a user prompt?
 
-**What they're really asking**: Do we understand how to control LLM behavior?
+Do we understand how to control LLM behavior?
 
 **The distinction**:
 - **System prompt**: Instructions that frame the entire conversation. Sets persona, rules, constraints.
@@ -38,7 +38,7 @@ User: How do I read a file in Python?
 
 ## How does temperature affect generation?
 
-**What they're really asking**: Do we understand how to control output randomness?
+Do we understand how to control output randomness?
 
 **The mechanics**: LLMs predict probability distributions over tokens. Temperature scales these probabilities before sampling.
 
@@ -64,7 +64,7 @@ User: How do I read a file in Python?
 
 ## What is RAG and when do we need it?
 
-**What they're really asking**: Do we understand how to give LLMs access to external knowledge?
+Do we understand how to give LLMs access to external knowledge?
 
 **The problem RAG solves**: LLMs only know what was in their training data (with a cutoff date). They can't access our private documents, real-time data, or specialized knowledge.
 
@@ -100,7 +100,7 @@ LLM: Based on the document, your refund policy states...
 
 ## How do embeddings work conceptually?
 
-**What they're really asking**: Do we understand vector representations of text?
+Do we understand vector representations of text?
 
 **The concept**: Embeddings convert text into fixed-length vectors (lists of numbers) where semantic similarity = geometric closeness.
 
@@ -131,7 +131,7 @@ LLM: Based on the document, your refund policy states...
 
 ## What's the difference between fine-tuning and RAG?
 
-**What they're really asking**: Do we know when to use which approach?
+Do we know when to use which approach?
 
 **RAG** = Give the model information at runtime via the prompt
 - Pros: No training, easy to update, source attribution
@@ -160,7 +160,7 @@ LLM: Based on the document, your refund policy states...
 
 ## How do we evaluate LLM output quality?
 
-**What they're really asking**: Do we know how to measure success?
+Do we know how to measure success?
 
 **The challenge**: LLM outputs are open-ended. No single "right answer."
 
@@ -196,7 +196,7 @@ LLM: Based on the document, your refund policy states...
 
 ## What's prompt injection and how do we defend against it?
 
-**What they're really asking**: Do we understand LLM security?
+Do we understand LLM security?
 
 **The attack**: User input manipulates the model to ignore its instructions.
 
@@ -240,7 +240,7 @@ Respond to the user:
 
 ## How do we handle context window limits?
 
-**What they're really asking**: Do we know how to work with finite context?
+Do we know how to work with finite context?
 
 **The problem**: Models have maximum input sizes (4K, 8K, 32K, 128K tokens). If our context exceeds this, we must truncate or fail.
 
@@ -272,7 +272,7 @@ User's new message
 
 ## What's the role of chunking in RAG pipelines?
 
-**What they're really asking**: Do we understand document preprocessing?
+Do we understand document preprocessing?
 
 **Why chunking**: Documents are often too long to embed or include in prompts. We split them into smaller pieces.
 
@@ -310,7 +310,7 @@ Chunk 3: [sentences 7-11]
 
 ## Streaming vs non-streaming — what are the tradeoffs?
 
-**What they're really asking**: Do we understand user experience and system design?
+Do we understand user experience and system design?
 
 **Non-streaming**: Wait for complete response, return all at once.
 - Pros: Simpler code, easier to validate/filter entire response

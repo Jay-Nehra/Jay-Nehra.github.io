@@ -11,8 +11,6 @@ tags:
 
 ### The Mental Model: Translation Between Worlds
 
-Think of our Python program as one country, and the outside world (files, APIs, databases) as another. These countries speak different languages:
-
 - **Python's language**: Objects in memory—dicts, lists, integers, custom classes, references, pointers
 - **The outside world's language**: Text—sequences of characters that can be written to disk or sent over a network
 

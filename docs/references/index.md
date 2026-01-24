@@ -22,6 +22,18 @@ Every guide has two parts:
 
 ## Browse by Category
 
+### Python Internals
+- [Introspection and Protocols](python/introspection-and-protocols.md) — Using `dir()` to understand any object, Python protocols and dunder methods
+- [GIL and Threading](python/gil-and-threading.md) — The Global Interpreter Lock, threading module, and concurrent I/O patterns
+- [Multiprocessing](python/multiprocessing.md) — Process-based parallelism for CPU-bound work
+- [Async Execution Model](python/async-execution-model.md) — Event loops, coroutines, and practical async patterns
+- [Memory Management](python/memory-management.md) — Reference counting, garbage collection, and memory profiling
+- [Decorators and Closures](python/decorators-and-closures.md) — First-class functions, closure mechanics, and practical decorators
+- [Generators and Iteration](python/generators-and-iteration.md) — Lazy evaluation, iterator protocol, and streaming patterns
+- [Import System](python/import-system.md) — Module loading, project structure, and circular imports
+- [Context Managers](python/context-managers.md) — Resource management with the `with` statement
+- [Common Gotchas](python/common-gotchas.md) — Classic pitfalls and interview favorites
+
 ### API & Web Servers
 - [FastAPI Execution Model](api/fastapi-execution-model.md) — How requests actually execute, sync vs async, concurrency, and resource management
 

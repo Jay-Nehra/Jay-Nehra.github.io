@@ -1,6 +1,7 @@
 title: References
 nav:
   - index.md
+  - python
   - api
   - llm
   - databases

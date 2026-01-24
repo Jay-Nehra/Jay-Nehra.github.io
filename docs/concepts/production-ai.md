@@ -14,7 +14,7 @@ What changes when we ship LLM applications to production. Observability, cost, r
 
 ## How do we observe LLM applications?
 
-**What they're really asking**: Do we build debuggable systems?
+Do we build debuggable systems?
 
 **The challenge**: LLMs are black boxes. When something goes wrong, we need visibility.
 
@@ -62,7 +62,7 @@ Request → LLM Call #1 → Tool: Search → LLM Call #2 → Response
 
 ## What metrics matter for LLM applications?
 
-**What they're really asking**: Do we know how to measure success?
+Do we know how to measure success?
 
 **Operational metrics**:
 
@@ -105,7 +105,7 @@ Request → LLM Call #1 → Tool: Search → LLM Call #2 → Response
 
 ## How do we handle rate limits and retries?
 
-**What they're really asking**: Do we build resilient systems?
+Do we build resilient systems?
 
 **The reality**: LLM APIs have rate limits (requests per minute, tokens per minute). We will hit them.
 
@@ -151,7 +151,7 @@ def call_llm_with_retry(messages):
 
 ## What's the caching strategy for LLM calls?
 
-**What they're really asking**: Do we optimize for cost and latency?
+Do we optimize for cost and latency?
 
 **Why cache**: LLM calls are expensive (time and money). Same prompt → same response (usually).
 
@@ -208,7 +208,7 @@ def cached_llm_call(messages, **kwargs):
 
 ## How do we A/B test AI features?
 
-**What they're really asking**: Do we ship with data-driven confidence?
+Do we ship with data-driven confidence?
 
 **The challenge**: LLM outputs are variable. Traditional A/B testing assumes deterministic behavior.
 
@@ -260,7 +260,7 @@ def answer_question(user_id: str, question: str) -> str:
 
 ## What guardrails should production LLM apps have?
 
-**What they're really asking**: Do we build safe systems?
+Do we build safe systems?
 
 **Input guardrails**:
 
@@ -310,7 +310,7 @@ def safe_llm_call(messages):
 
 ## How do we handle cost control?
 
-**What they're really asking**: Can we build economically sustainable systems?
+Can we build economically sustainable systems?
 
 **Cost drivers**:
 - Input tokens (prompts, context)
@@ -362,7 +362,7 @@ class BudgetTracker:
 
 ## What's the latency budget for LLM features?
 
-**What they're really asking**: Do we understand user experience constraints?
+Do we understand user experience constraints?
 
 **Reality check**: LLM calls are slow. 1-10 seconds is typical. Users expect faster.
 

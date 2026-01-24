@@ -9,11 +9,24 @@ tags:
 
 Senior-level Python questions. Not "how do we write a list comprehension" but "what's actually happening under the hood."
 
+!!! tip "Deep Reference Guides Available"
+    Each topic below has a corresponding deep-dive reference guide with comprehensive explanations, code examples, and practical patterns:
+    
+    - [Introspection and Protocols](../references/python/introspection-and-protocols.md) - Start here to understand any Python object
+    - [GIL and Threading](../references/python/gil-and-threading.md) | [Multiprocessing](../references/python/multiprocessing.md)
+    - [Async Execution Model](../references/python/async-execution-model.md)
+    - [Memory Management](../references/python/memory-management.md)
+    - [Decorators and Closures](../references/python/decorators-and-closures.md)
+    - [Generators and Iteration](../references/python/generators-and-iteration.md)
+    - [Import System](../references/python/import-system.md)
+    - [Context Managers](../references/python/context-managers.md)
+    - [Common Gotchas](../references/python/common-gotchas.md)
+
 ---
 
 ## What is the GIL and when does it actually matter?
 
-**What they're really asking**: Do we understand Python's concurrency model and its limitations?
+Do we understand Python's concurrency model and its limitations?
 
 **The core insight**: The Global Interpreter Lock (GIL) ensures only one thread executes Python bytecode at a time. But this matters less than people think for most AI workloads.
 
@@ -37,7 +50,7 @@ Senior-level Python questions. Not "how do we write a list comprehension" but "w
 
 ## How does Python's memory management work?
 
-**What they're really asking**: Can we debug memory issues and understand object lifecycle?
+Can we debug memory issues and understand object lifecycle?
 
 **The two-layer system**:
 
@@ -72,7 +85,7 @@ del a, b  # refcounts are 1, not 0 — GC must clean up
 
 ## Generators vs iterators — what's the difference and when do we use generators?
 
-**What they're really asking**: Do we understand lazy evaluation and memory efficiency?
+Do we understand lazy evaluation and memory efficiency?
 
 **The distinction**:
 - **Iterator**: Any object with `__iter__` and `__next__` methods
@@ -105,7 +118,7 @@ data = (process(x) for x in range(1_000_000))
 
 ## What happens when we `import` a module?
 
-**What they're really asking**: Do we understand Python's module system and potential side effects?
+Do we understand Python's module system and potential side effects?
 
 **The sequence**:
 
@@ -138,7 +151,7 @@ data = (process(x) for x in range(1_000_000))
 
 ## How do decorators work under the hood?
 
-**What they're really asking**: Do we understand Python's first-class functions and the decorator pattern?
+Do we understand Python's first-class functions and the decorator pattern?
 
 **The simple truth**: Decorators are just functions that take a function and return a function.
 
@@ -187,7 +200,7 @@ def my_decorator(func):
 
 ## What's `async`/`await` actually doing?
 
-**What they're really asking**: Do we understand cooperative concurrency vs parallelism?
+Do we understand cooperative concurrency vs parallelism?
 
 **The mental model**: `async`/`await` is about *waiting efficiently*, not about *doing multiple things simultaneously*.
 
@@ -224,7 +237,7 @@ async def fetch_all():
 
 ## Why are default mutable arguments dangerous?
 
-**What they're really asking**: Do we understand Python's evaluation model?
+Do we understand Python's evaluation model?
 
 **The trap**:
 ```python
@@ -255,7 +268,7 @@ def add_item(item, items=None):
 
 ## How does `__slots__` save memory?
 
-**What they're really asking**: Do we understand Python's object model and when to optimize?
+Do we understand Python's object model and when to optimize?
 
 **Normal objects**: Each instance has a `__dict__` — a dictionary storing all attributes. Dictionaries have overhead (~100+ bytes).
 
@@ -292,7 +305,7 @@ class Slotted:
 
 ## What are descriptors and where do we see them?
 
-**What they're really asking**: Do we understand Python's attribute access machinery?
+Do we understand Python's attribute access machinery?
 
 **The definition**: A descriptor is any object that implements `__get__`, `__set__`, or `__delete__`.
 
@@ -324,7 +337,7 @@ class Circle:
 
 ## How does method resolution order (MRO) work?
 
-**What they're really asking**: Do we understand multiple inheritance and super()?
+Do we understand multiple inheritance and super()?
 
 **The problem**: With multiple inheritance, which parent's method gets called?
 
@@ -364,7 +377,7 @@ class B(A):
 
 ## What's the difference between `is` and `==`?
 
-**What they're really asking**: Do we understand identity vs equality?
+Do we understand identity vs equality?
 
 **The distinction**:
 - `==` compares values (calls `__eq__`)

@@ -1,9 +1,6 @@
 # FastAPI Execution Model for LLM Applications
 
 This document explains how FastAPI actually works at runtime — not the syntax, but the execution mechanics. If you understand what happens when a request arrives, where your code runs, and what resources are shared, you will stop making the class of bugs that only appear in production.
-
-This guide is written for someone building LLM-powered APIs: inference endpoints, RAG services, agent backends. The examples reflect that context, but the principles apply to any FastAPI application.
-
 ---
 
 ## 1. What Is a Server, Really

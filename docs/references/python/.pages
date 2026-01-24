@@ -1,0 +1,13 @@
+title: Python Internals
+nav:
+  - index.md
+  - introspection-and-protocols.md
+  - gil-and-threading.md
+  - multiprocessing.md
+  - async-execution-model.md
+  - memory-management.md
+  - decorators-and-closures.md
+  - generators-and-iteration.md
+  - import-system.md
+  - context-managers.md
+  - common-gotchas.md
