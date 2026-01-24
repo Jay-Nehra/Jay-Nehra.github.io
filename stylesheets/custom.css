@@ -1,0 +1,968 @@
+/* ============================================
+   Jayant Nehra - Personal Site Theme
+   Four reading modes: parchment, parchment-warm, solarized-teal, ink-dark
+   ============================================ */
+
+/* ============================================
+   PARCHMENT (Light, default)
+   ============================================ */
+[data-md-color-scheme="parchment"] {
+  /* Core */
+  --md-default-bg-color: #f6f2e9;
+  --md-default-fg-color: #3f3a32;
+  --md-default-fg-color--light: #5a5449;
+  --md-default-fg-color--lighter: #7a756c;
+  --md-default-fg-color--lightest: #9a958c;
+
+  /* Primary/Accent */
+  --md-primary-fg-color: #3f3a32;
+  --md-primary-bg-color: #f6f2e9;
+  --md-accent-fg-color: #6b5a2e;
+
+  /* Typography */
+  --md-typeset-color: #3f3a32;
+  --md-typeset-a-color: #6b5a2e;
+
+  /* Code */
+  --md-code-bg-color: #eee6d6;
+  --md-code-fg-color: #3f3a32;
+  --md-code-hl-color: rgba(107, 90, 46, 0.12);
+
+  /* Search */
+  --md-search-result-icon-color: #6b5a2e;
+
+  /* Shadows (flat design) */
+  --md-shadow-z1: none;
+  --md-shadow-z2: none;
+  --md-shadow-z3: none;
+
+  /* Borders */
+  --md-border-color: #e0dacb;
+}
+
+/* ============================================
+   PARCHMENT WARM (Retro, higher contrast)
+   ============================================ */
+[data-md-color-scheme="parchment-warm"] {
+  /* Core */
+  --md-default-bg-color: #eddcae;
+  --md-default-fg-color: #1a1a1a;
+  --md-default-fg-color--light: #3a3a3a;
+  --md-default-fg-color--lighter: #5a5a5a;
+  --md-default-fg-color--lightest: #7a7a7a;
+
+  /* Primary/Accent */
+  --md-primary-fg-color: #1a1a1a;
+  --md-primary-bg-color: #eddcae;
+  --md-accent-fg-color: #7a5f22;
+
+  /* Typography */
+  --md-typeset-color: #1a1a1a;
+  --md-typeset-a-color: #8c6d1f;
+
+  /* Code */
+  --md-code-bg-color: #e5d29a;
+  --md-code-fg-color: #1a1a1a;
+  --md-code-hl-color: rgba(140, 109, 31, 0.15);
+
+  /* Search */
+  --md-search-result-icon-color: #8c6d1f;
+
+  /* Shadows */
+  --md-shadow-z1: none;
+  --md-shadow-z2: none;
+  --md-shadow-z3: none;
+
+  /* Borders */
+  --md-border-color: #d4c48a;
+}
+
+/* ============================================
+   SOLARIZED TEAL (Cool, calm dark)
+   ============================================ */
+[data-md-color-scheme="solarized-teal"] {
+  /* Core */
+  --md-default-bg-color: #123442;
+  --md-default-fg-color: #f5f9fa;
+  --md-default-fg-color--light: #c8d5d8;
+  --md-default-fg-color--lighter: #9aacb0;
+  --md-default-fg-color--lightest: #6c8488;
+
+  /* Primary/Accent */
+  --md-primary-fg-color: #f5f9fa;
+  --md-primary-bg-color: #123442;
+  --md-accent-fg-color: #eee277;
+
+  /* Typography */
+  --md-typeset-color: #f5f9fa;
+  --md-typeset-a-color: #eee277;
+
+  /* Code */
+  --md-code-bg-color: #1b3f4e;
+  --md-code-fg-color: #e6ddc8;
+  --md-code-hl-color: rgba(238, 226, 119, 0.15);
+
+  /* Search */
+  --md-search-result-icon-color: #eee277;
+
+  /* Shadows */
+  --md-shadow-z1: none;
+  --md-shadow-z2: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --md-shadow-z3: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+  /* Borders */
+  --md-border-color: #2a4f5f;
+}
+
+/* ============================================
+   INK DARK (Warm, cozy dark)
+   ============================================ */
+[data-md-color-scheme="ink-dark"] {
+  /* Core */
+  --md-default-bg-color: #1c1a17;
+  --md-default-fg-color: #e6ddc8;
+  --md-default-fg-color--light: #c4baa5;
+  --md-default-fg-color--lighter: #a29882;
+  --md-default-fg-color--lightest: #80765f;
+
+  /* Primary/Accent */
+  --md-primary-fg-color: #e6ddc8;
+  --md-primary-bg-color: #1c1a17;
+  --md-accent-fg-color: #d6b25e;
+
+  /* Typography */
+  --md-typeset-color: #e6ddc8;
+  --md-typeset-a-color: #d6b25e;
+
+  /* Code */
+  --md-code-bg-color: #2a2621;
+  --md-code-fg-color: #e6ddc8;
+  --md-code-hl-color: rgba(214, 178, 94, 0.15);
+
+  /* Search */
+  --md-search-result-icon-color: #d6b25e;
+
+  /* Shadows */
+  --md-shadow-z1: none;
+  --md-shadow-z2: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --md-shadow-z3: 0 4px 16px rgba(0, 0, 0, 0.5);
+
+  /* Borders */
+  --md-border-color: #3a362f;
+}
+
+/* ============================================
+   SEARCH MODAL - FIX FOR ALL THEMES
+   ============================================ */
+
+/* Search input */
+.md-search__input {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+}
+
+.md-search__input::placeholder {
+  color: var(--md-default-fg-color--lighter);
+}
+
+/* Search output container */
+.md-search__output {
+  background-color: var(--md-default-bg-color);
+  border: 1px solid var(--md-border-color);
+}
+
+/* Search result list */
+.md-search-result__list {
+  background-color: var(--md-default-bg-color);
+}
+
+/* Individual search result item */
+.md-search-result__item {
+  border-bottom: 1px solid var(--md-border-color);
+}
+
+/* Search result link */
+.md-search-result__link {
+  background-color: var(--md-default-bg-color);
+}
+
+.md-search-result__link:hover,
+.md-search-result__link:focus {
+  background-color: var(--md-code-bg-color);
+}
+
+/* Article title in search results */
+.md-search-result__article--document .md-search-result__title {
+  color: var(--md-default-fg-color);
+  font-weight: 600;
+}
+
+/* Section titles in search (nested results) */
+.md-search-result__article:not(.md-search-result__article--document) .md-search-result__title {
+  color: var(--md-default-fg-color);
+}
+
+/* Search result excerpt/teaser */
+.md-search-result__teaser {
+  color: var(--md-default-fg-color--light);
+}
+
+/* Search result meta info */
+.md-search-result__meta {
+  color: var(--md-default-fg-color--lighter);
+  background-color: transparent;
+}
+
+/* Highlighted search terms */
+.md-search-result__teaser mark,
+.md-search-result__title mark {
+  background-color: var(--md-code-hl-color);
+  color: var(--md-accent-fg-color);
+}
+
+/* "No results" message */
+.md-search-result__meta--title {
+  color: var(--md-default-fg-color);
+}
+
+/* Search icon */
+.md-search-result__icon {
+  color: var(--md-search-result-icon-color);
+}
+
+/* ============================================
+   Remove motion (accessibility + personal pref)
+   ============================================ */
+* {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* ============================================
+   Header / Tabs / Footer
+   ============================================ */
+.md-header,
+.md-tabs,
+.md-footer {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  box-shadow: none;
+  border: none;
+}
+
+.md-header__button {
+  color: var(--md-default-fg-color);
+}
+
+.md-tabs {
+  border-bottom: 1px solid var(--md-border-color);
+}
+
+.md-tabs__link {
+  color: var(--md-default-fg-color--light);
+  font-weight: 500;
+  opacity: 1;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: var(--md-default-fg-color);
+}
+
+.md-header__title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--md-default-fg-color);
+}
+
+/* Footer */
+.md-footer {
+  border-top: 1px solid var(--md-border-color);
+}
+
+.md-footer-meta {
+  background-color: var(--md-default-bg-color);
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.md-typeset {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--md-typeset-color);
+}
+
+/* Desktop: comfortable reading width */
+@media (min-width: 1200px) {
+  .md-typeset {
+    max-width: 68ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Split/mobile: fluid */
+@media (max-width: 1199px) {
+  .md-typeset {
+    max-width: none;
+  }
+}
+
+/* Headings */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset h2 {
+  border-bottom: 1px solid var(--md-border-color);
+  padding-bottom: 0.3rem;
+}
+
+/* Paragraphs */
+.md-typeset p {
+  margin-bottom: 1.2rem;
+}
+
+/* Links */
+.md-typeset a {
+  color: var(--md-typeset-a-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.md-typeset a:hover {
+  color: var(--md-accent-fg-color);
+}
+
+/* ============================================
+   Code Blocks
+   ============================================ */
+.md-typeset code {
+  background-color: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.md-typeset pre {
+  background-color: var(--md-code-bg-color);
+  border-left: 3px solid var(--md-typeset-a-color);
+  padding: 1rem;
+}
+
+.md-typeset pre code {
+  background: none;
+  padding: 0;
+  color: var(--md-code-fg-color);
+}
+
+/* Ensure highlight wrapper inherits */
+.highlight {
+  background-color: var(--md-code-bg-color) !important;
+}
+
+/* ============================================
+   Syntax Highlighting - Light Themes (Parchment)
+   Comprehensive token coverage for readability
+   ============================================ */
+[data-md-color-scheme="parchment"] .highlight,
+[data-md-color-scheme="parchment-warm"] .highlight {
+  color: #3f3a32;
+}
+
+/* Base text/code - ensure all code text is visible */
+[data-md-color-scheme="parchment"] .highlight span,
+[data-md-color-scheme="parchment-warm"] .highlight span {
+  color: #3f3a32;
+}
+
+/* Keywords: def, class, if, return, import, from, as, with, try, except */
+[data-md-color-scheme="parchment"] .highlight .k,
+[data-md-color-scheme="parchment"] .highlight .kd,
+[data-md-color-scheme="parchment"] .highlight .kn,
+[data-md-color-scheme="parchment"] .highlight .kp,
+[data-md-color-scheme="parchment"] .highlight .kr,
+[data-md-color-scheme="parchment"] .highlight .kc,
+[data-md-color-scheme="parchment"] .highlight .kt,
+[data-md-color-scheme="parchment-warm"] .highlight .k,
+[data-md-color-scheme="parchment-warm"] .highlight .kd,
+[data-md-color-scheme="parchment-warm"] .highlight .kn,
+[data-md-color-scheme="parchment-warm"] .highlight .kp,
+[data-md-color-scheme="parchment-warm"] .highlight .kr,
+[data-md-color-scheme="parchment-warm"] .highlight .kc,
+[data-md-color-scheme="parchment-warm"] .highlight .kt {
+  color: #8b4513;
+  font-weight: 600;
+}
+
+/* Strings - all types */
+[data-md-color-scheme="parchment"] .highlight .s,
+[data-md-color-scheme="parchment"] .highlight .s1,
+[data-md-color-scheme="parchment"] .highlight .s2,
+[data-md-color-scheme="parchment"] .highlight .sa,
+[data-md-color-scheme="parchment"] .highlight .sb,
+[data-md-color-scheme="parchment"] .highlight .sc,
+[data-md-color-scheme="parchment"] .highlight .sd,
+[data-md-color-scheme="parchment"] .highlight .se,
+[data-md-color-scheme="parchment"] .highlight .sh,
+[data-md-color-scheme="parchment"] .highlight .sx,
+[data-md-color-scheme="parchment"] .highlight .sr,
+[data-md-color-scheme="parchment"] .highlight .ss,
+[data-md-color-scheme="parchment-warm"] .highlight .s,
+[data-md-color-scheme="parchment-warm"] .highlight .s1,
+[data-md-color-scheme="parchment-warm"] .highlight .s2,
+[data-md-color-scheme="parchment-warm"] .highlight .sa,
+[data-md-color-scheme="parchment-warm"] .highlight .sb,
+[data-md-color-scheme="parchment-warm"] .highlight .sc,
+[data-md-color-scheme="parchment-warm"] .highlight .sd,
+[data-md-color-scheme="parchment-warm"] .highlight .se,
+[data-md-color-scheme="parchment-warm"] .highlight .sh,
+[data-md-color-scheme="parchment-warm"] .highlight .sx,
+[data-md-color-scheme="parchment-warm"] .highlight .sr,
+[data-md-color-scheme="parchment-warm"] .highlight .ss {
+  color: #2e7d32;
+}
+
+/* String interpolation (f-strings) */
+[data-md-color-scheme="parchment"] .highlight .si,
+[data-md-color-scheme="parchment-warm"] .highlight .si {
+  color: #7b5a00;
+}
+
+/* Comments */
+[data-md-color-scheme="parchment"] .highlight .c,
+[data-md-color-scheme="parchment"] .highlight .c1,
+[data-md-color-scheme="parchment"] .highlight .cm,
+[data-md-color-scheme="parchment"] .highlight .cp,
+[data-md-color-scheme="parchment"] .highlight .cpf,
+[data-md-color-scheme="parchment"] .highlight .cs,
+[data-md-color-scheme="parchment-warm"] .highlight .c,
+[data-md-color-scheme="parchment-warm"] .highlight .c1,
+[data-md-color-scheme="parchment-warm"] .highlight .cm,
+[data-md-color-scheme="parchment-warm"] .highlight .cp,
+[data-md-color-scheme="parchment-warm"] .highlight .cpf,
+[data-md-color-scheme="parchment-warm"] .highlight .cs {
+  color: #666055;
+  font-style: italic;
+}
+
+/* Functions and methods */
+[data-md-color-scheme="parchment"] .highlight .nf,
+[data-md-color-scheme="parchment"] .highlight .fm,
+[data-md-color-scheme="parchment-warm"] .highlight .nf,
+[data-md-color-scheme="parchment-warm"] .highlight .fm {
+  color: #6b5a2e;
+  font-weight: 500;
+}
+
+/* Class names */
+[data-md-color-scheme="parchment"] .highlight .nc,
+[data-md-color-scheme="parchment-warm"] .highlight .nc {
+  color: #0d47a1;
+  font-weight: 600;
+}
+
+/* Names - variables, attributes, plain identifiers */
+[data-md-color-scheme="parchment"] .highlight .n,
+[data-md-color-scheme="parchment"] .highlight .na,
+[data-md-color-scheme="parchment"] .highlight .nl,
+[data-md-color-scheme="parchment"] .highlight .nn,
+[data-md-color-scheme="parchment"] .highlight .nx,
+[data-md-color-scheme="parchment-warm"] .highlight .n,
+[data-md-color-scheme="parchment-warm"] .highlight .na,
+[data-md-color-scheme="parchment-warm"] .highlight .nl,
+[data-md-color-scheme="parchment-warm"] .highlight .nn,
+[data-md-color-scheme="parchment-warm"] .highlight .nx {
+  color: #3f3a32;
+}
+
+/* Name.Tag (YAML keys, HTML tags) */
+[data-md-color-scheme="parchment"] .highlight .nt,
+[data-md-color-scheme="parchment-warm"] .highlight .nt {
+  color: #0d47a1;
+}
+
+/* Name.Constant */
+[data-md-color-scheme="parchment"] .highlight .no,
+[data-md-color-scheme="parchment-warm"] .highlight .no {
+  color: #b8860b;
+}
+
+/* Name.Variable */
+[data-md-color-scheme="parchment"] .highlight .nv,
+[data-md-color-scheme="parchment"] .highlight .vc,
+[data-md-color-scheme="parchment"] .highlight .vg,
+[data-md-color-scheme="parchment"] .highlight .vi,
+[data-md-color-scheme="parchment-warm"] .highlight .nv,
+[data-md-color-scheme="parchment-warm"] .highlight .vc,
+[data-md-color-scheme="parchment-warm"] .highlight .vg,
+[data-md-color-scheme="parchment-warm"] .highlight .vi {
+  color: #5d4037;
+}
+
+/* Built-ins (print, len, dict, etc) */
+[data-md-color-scheme="parchment"] .highlight .nb,
+[data-md-color-scheme="parchment-warm"] .highlight .nb {
+  color: #6a1b9a;
+}
+
+/* Built-in pseudo (self, cls, True, False, None) */
+[data-md-color-scheme="parchment"] .highlight .bp,
+[data-md-color-scheme="parchment-warm"] .highlight .bp {
+  color: #8b4513;
+}
+
+/* Numbers */
+[data-md-color-scheme="parchment"] .highlight .m,
+[data-md-color-scheme="parchment"] .highlight .mi,
+[data-md-color-scheme="parchment"] .highlight .mf,
+[data-md-color-scheme="parchment"] .highlight .mh,
+[data-md-color-scheme="parchment"] .highlight .mo,
+[data-md-color-scheme="parchment"] .highlight .mb,
+[data-md-color-scheme="parchment"] .highlight .mx,
+[data-md-color-scheme="parchment"] .highlight .il,
+[data-md-color-scheme="parchment-warm"] .highlight .m,
+[data-md-color-scheme="parchment-warm"] .highlight .mi,
+[data-md-color-scheme="parchment-warm"] .highlight .mf,
+[data-md-color-scheme="parchment-warm"] .highlight .mh,
+[data-md-color-scheme="parchment-warm"] .highlight .mo,
+[data-md-color-scheme="parchment-warm"] .highlight .mb,
+[data-md-color-scheme="parchment-warm"] .highlight .mx,
+[data-md-color-scheme="parchment-warm"] .highlight .il {
+  color: #b8860b;
+}
+
+/* Operators and punctuation */
+[data-md-color-scheme="parchment"] .highlight .o,
+[data-md-color-scheme="parchment"] .highlight .ow,
+[data-md-color-scheme="parchment"] .highlight .p,
+[data-md-color-scheme="parchment-warm"] .highlight .o,
+[data-md-color-scheme="parchment-warm"] .highlight .ow,
+[data-md-color-scheme="parchment-warm"] .highlight .p {
+  color: #3f3a32;
+}
+
+/* Decorators */
+[data-md-color-scheme="parchment"] .highlight .nd,
+[data-md-color-scheme="parchment-warm"] .highlight .nd {
+  color: #6a1b9a;
+  font-weight: 500;
+}
+
+/* Exception names */
+[data-md-color-scheme="parchment"] .highlight .ne,
+[data-md-color-scheme="parchment-warm"] .highlight .ne {
+  color: #c62828;
+  font-weight: 500;
+}
+
+/* Generic text (diff output, etc) */
+[data-md-color-scheme="parchment"] .highlight .g,
+[data-md-color-scheme="parchment"] .highlight .gd,
+[data-md-color-scheme="parchment"] .highlight .ge,
+[data-md-color-scheme="parchment"] .highlight .gh,
+[data-md-color-scheme="parchment"] .highlight .gi,
+[data-md-color-scheme="parchment"] .highlight .go,
+[data-md-color-scheme="parchment"] .highlight .gp,
+[data-md-color-scheme="parchment"] .highlight .gs,
+[data-md-color-scheme="parchment"] .highlight .gu,
+[data-md-color-scheme="parchment"] .highlight .gt,
+[data-md-color-scheme="parchment-warm"] .highlight .g,
+[data-md-color-scheme="parchment-warm"] .highlight .gd,
+[data-md-color-scheme="parchment-warm"] .highlight .ge,
+[data-md-color-scheme="parchment-warm"] .highlight .gh,
+[data-md-color-scheme="parchment-warm"] .highlight .gi,
+[data-md-color-scheme="parchment-warm"] .highlight .go,
+[data-md-color-scheme="parchment-warm"] .highlight .gp,
+[data-md-color-scheme="parchment-warm"] .highlight .gs,
+[data-md-color-scheme="parchment-warm"] .highlight .gu,
+[data-md-color-scheme="parchment-warm"] .highlight .gt {
+  color: #3f3a32;
+}
+
+/* Literal */
+[data-md-color-scheme="parchment"] .highlight .l,
+[data-md-color-scheme="parchment"] .highlight .ld,
+[data-md-color-scheme="parchment-warm"] .highlight .l,
+[data-md-color-scheme="parchment-warm"] .highlight .ld {
+  color: #2e7d32;
+}
+
+/* Whitespace - ensure it doesn't get weird colors */
+[data-md-color-scheme="parchment"] .highlight .w,
+[data-md-color-scheme="parchment-warm"] .highlight .w {
+  color: transparent;
+}
+
+/* ============================================
+   Syntax Highlighting - Dark Themes (Ink-Dark & Solarized-Teal)
+   Comprehensive token coverage for readability
+   ============================================ */
+[data-md-color-scheme="ink-dark"] .highlight,
+[data-md-color-scheme="solarized-teal"] .highlight {
+  color: #e6ddc8;
+}
+
+/* Base text/code - ensure all code text is visible */
+[data-md-color-scheme="ink-dark"] .highlight span,
+[data-md-color-scheme="solarized-teal"] .highlight span {
+  color: #e6ddc8;
+}
+
+/* Keywords: def, class, if, return, import, from, as, with, try, except */
+[data-md-color-scheme="ink-dark"] .highlight .k,
+[data-md-color-scheme="ink-dark"] .highlight .kd,
+[data-md-color-scheme="ink-dark"] .highlight .kn,
+[data-md-color-scheme="ink-dark"] .highlight .kp,
+[data-md-color-scheme="ink-dark"] .highlight .kr,
+[data-md-color-scheme="ink-dark"] .highlight .kc,
+[data-md-color-scheme="ink-dark"] .highlight .kt,
+[data-md-color-scheme="solarized-teal"] .highlight .k,
+[data-md-color-scheme="solarized-teal"] .highlight .kd,
+[data-md-color-scheme="solarized-teal"] .highlight .kn,
+[data-md-color-scheme="solarized-teal"] .highlight .kp,
+[data-md-color-scheme="solarized-teal"] .highlight .kr,
+[data-md-color-scheme="solarized-teal"] .highlight .kc,
+[data-md-color-scheme="solarized-teal"] .highlight .kt {
+  color: #f6c177;
+  font-weight: 600;
+}
+
+/* Strings - all types */
+[data-md-color-scheme="ink-dark"] .highlight .s,
+[data-md-color-scheme="ink-dark"] .highlight .s1,
+[data-md-color-scheme="ink-dark"] .highlight .s2,
+[data-md-color-scheme="ink-dark"] .highlight .sa,
+[data-md-color-scheme="ink-dark"] .highlight .sb,
+[data-md-color-scheme="ink-dark"] .highlight .sc,
+[data-md-color-scheme="ink-dark"] .highlight .sd,
+[data-md-color-scheme="ink-dark"] .highlight .se,
+[data-md-color-scheme="ink-dark"] .highlight .sh,
+[data-md-color-scheme="ink-dark"] .highlight .sx,
+[data-md-color-scheme="ink-dark"] .highlight .sr,
+[data-md-color-scheme="ink-dark"] .highlight .ss,
+[data-md-color-scheme="solarized-teal"] .highlight .s,
+[data-md-color-scheme="solarized-teal"] .highlight .s1,
+[data-md-color-scheme="solarized-teal"] .highlight .s2,
+[data-md-color-scheme="solarized-teal"] .highlight .sa,
+[data-md-color-scheme="solarized-teal"] .highlight .sb,
+[data-md-color-scheme="solarized-teal"] .highlight .sc,
+[data-md-color-scheme="solarized-teal"] .highlight .sd,
+[data-md-color-scheme="solarized-teal"] .highlight .se,
+[data-md-color-scheme="solarized-teal"] .highlight .sh,
+[data-md-color-scheme="solarized-teal"] .highlight .sx,
+[data-md-color-scheme="solarized-teal"] .highlight .sr,
+[data-md-color-scheme="solarized-teal"] .highlight .ss {
+  color: #9fd3c7;
+}
+
+/* String interpolation (f-strings) */
+[data-md-color-scheme="ink-dark"] .highlight .si,
+[data-md-color-scheme="solarized-teal"] .highlight .si {
+  color: #eee277;
+}
+
+/* Comments */
+[data-md-color-scheme="ink-dark"] .highlight .c,
+[data-md-color-scheme="ink-dark"] .highlight .c1,
+[data-md-color-scheme="ink-dark"] .highlight .cm,
+[data-md-color-scheme="ink-dark"] .highlight .cp,
+[data-md-color-scheme="ink-dark"] .highlight .cpf,
+[data-md-color-scheme="ink-dark"] .highlight .cs,
+[data-md-color-scheme="solarized-teal"] .highlight .c,
+[data-md-color-scheme="solarized-teal"] .highlight .c1,
+[data-md-color-scheme="solarized-teal"] .highlight .cm,
+[data-md-color-scheme="solarized-teal"] .highlight .cp,
+[data-md-color-scheme="solarized-teal"] .highlight .cpf,
+[data-md-color-scheme="solarized-teal"] .highlight .cs {
+  color: #7a8a8a;
+  font-style: italic;
+}
+
+/* Functions and methods */
+[data-md-color-scheme="ink-dark"] .highlight .nf,
+[data-md-color-scheme="ink-dark"] .highlight .fm,
+[data-md-color-scheme="solarized-teal"] .highlight .nf,
+[data-md-color-scheme="solarized-teal"] .highlight .fm {
+  color: #82aaff;
+  font-weight: 500;
+}
+
+/* Class names */
+[data-md-color-scheme="ink-dark"] .highlight .nc,
+[data-md-color-scheme="solarized-teal"] .highlight .nc {
+  color: #eee277;
+  font-weight: 600;
+}
+
+/* Names - variables, attributes, plain identifiers */
+[data-md-color-scheme="ink-dark"] .highlight .n,
+[data-md-color-scheme="ink-dark"] .highlight .na,
+[data-md-color-scheme="ink-dark"] .highlight .nl,
+[data-md-color-scheme="ink-dark"] .highlight .nn,
+[data-md-color-scheme="ink-dark"] .highlight .nx,
+[data-md-color-scheme="solarized-teal"] .highlight .n,
+[data-md-color-scheme="solarized-teal"] .highlight .na,
+[data-md-color-scheme="solarized-teal"] .highlight .nl,
+[data-md-color-scheme="solarized-teal"] .highlight .nn,
+[data-md-color-scheme="solarized-teal"] .highlight .nx {
+  color: #e6ddc8;
+}
+
+/* Name.Tag (YAML keys, HTML tags) */
+[data-md-color-scheme="ink-dark"] .highlight .nt,
+[data-md-color-scheme="solarized-teal"] .highlight .nt {
+  color: #82aaff;
+}
+
+/* Name.Constant */
+[data-md-color-scheme="ink-dark"] .highlight .no,
+[data-md-color-scheme="solarized-teal"] .highlight .no {
+  color: #d6b25e;
+}
+
+/* Name.Variable */
+[data-md-color-scheme="ink-dark"] .highlight .nv,
+[data-md-color-scheme="ink-dark"] .highlight .vc,
+[data-md-color-scheme="ink-dark"] .highlight .vg,
+[data-md-color-scheme="ink-dark"] .highlight .vi,
+[data-md-color-scheme="solarized-teal"] .highlight .nv,
+[data-md-color-scheme="solarized-teal"] .highlight .vc,
+[data-md-color-scheme="solarized-teal"] .highlight .vg,
+[data-md-color-scheme="solarized-teal"] .highlight .vi {
+  color: #c4baa5;
+}
+
+/* Built-ins (print, len, dict, etc) */
+[data-md-color-scheme="ink-dark"] .highlight .nb,
+[data-md-color-scheme="solarized-teal"] .highlight .nb {
+  color: #c792ea;
+}
+
+/* Built-in pseudo (self, cls, True, False, None) */
+[data-md-color-scheme="ink-dark"] .highlight .bp,
+[data-md-color-scheme="solarized-teal"] .highlight .bp {
+  color: #f6c177;
+}
+
+/* Numbers */
+[data-md-color-scheme="ink-dark"] .highlight .m,
+[data-md-color-scheme="ink-dark"] .highlight .mi,
+[data-md-color-scheme="ink-dark"] .highlight .mf,
+[data-md-color-scheme="ink-dark"] .highlight .mh,
+[data-md-color-scheme="ink-dark"] .highlight .mo,
+[data-md-color-scheme="ink-dark"] .highlight .mb,
+[data-md-color-scheme="ink-dark"] .highlight .mx,
+[data-md-color-scheme="ink-dark"] .highlight .il,
+[data-md-color-scheme="solarized-teal"] .highlight .m,
+[data-md-color-scheme="solarized-teal"] .highlight .mi,
+[data-md-color-scheme="solarized-teal"] .highlight .mf,
+[data-md-color-scheme="solarized-teal"] .highlight .mh,
+[data-md-color-scheme="solarized-teal"] .highlight .mo,
+[data-md-color-scheme="solarized-teal"] .highlight .mb,
+[data-md-color-scheme="solarized-teal"] .highlight .mx,
+[data-md-color-scheme="solarized-teal"] .highlight .il {
+  color: #d6b25e;
+}
+
+/* Operators and punctuation */
+[data-md-color-scheme="ink-dark"] .highlight .o,
+[data-md-color-scheme="ink-dark"] .highlight .ow,
+[data-md-color-scheme="ink-dark"] .highlight .p,
+[data-md-color-scheme="solarized-teal"] .highlight .o,
+[data-md-color-scheme="solarized-teal"] .highlight .ow,
+[data-md-color-scheme="solarized-teal"] .highlight .p {
+  color: #e6ddc8;
+}
+
+/* Decorators */
+[data-md-color-scheme="ink-dark"] .highlight .nd,
+[data-md-color-scheme="solarized-teal"] .highlight .nd {
+  color: #c792ea;
+  font-weight: 500;
+}
+
+/* Exception names */
+[data-md-color-scheme="ink-dark"] .highlight .ne,
+[data-md-color-scheme="solarized-teal"] .highlight .ne {
+  color: #ff8a80;
+  font-weight: 500;
+}
+
+/* Generic text (diff output, etc) */
+[data-md-color-scheme="ink-dark"] .highlight .g,
+[data-md-color-scheme="ink-dark"] .highlight .gd,
+[data-md-color-scheme="ink-dark"] .highlight .ge,
+[data-md-color-scheme="ink-dark"] .highlight .gh,
+[data-md-color-scheme="ink-dark"] .highlight .gi,
+[data-md-color-scheme="ink-dark"] .highlight .go,
+[data-md-color-scheme="ink-dark"] .highlight .gp,
+[data-md-color-scheme="ink-dark"] .highlight .gs,
+[data-md-color-scheme="ink-dark"] .highlight .gu,
+[data-md-color-scheme="ink-dark"] .highlight .gt,
+[data-md-color-scheme="solarized-teal"] .highlight .g,
+[data-md-color-scheme="solarized-teal"] .highlight .gd,
+[data-md-color-scheme="solarized-teal"] .highlight .ge,
+[data-md-color-scheme="solarized-teal"] .highlight .gh,
+[data-md-color-scheme="solarized-teal"] .highlight .gi,
+[data-md-color-scheme="solarized-teal"] .highlight .go,
+[data-md-color-scheme="solarized-teal"] .highlight .gp,
+[data-md-color-scheme="solarized-teal"] .highlight .gs,
+[data-md-color-scheme="solarized-teal"] .highlight .gu,
+[data-md-color-scheme="solarized-teal"] .highlight .gt {
+  color: #e6ddc8;
+}
+
+/* Literal */
+[data-md-color-scheme="ink-dark"] .highlight .l,
+[data-md-color-scheme="ink-dark"] .highlight .ld,
+[data-md-color-scheme="solarized-teal"] .highlight .l,
+[data-md-color-scheme="solarized-teal"] .highlight .ld {
+  color: #9fd3c7;
+}
+
+/* Whitespace - ensure it doesn't get weird colors */
+[data-md-color-scheme="ink-dark"] .highlight .w,
+[data-md-color-scheme="solarized-teal"] .highlight .w {
+  color: transparent;
+}
+
+/* ============================================
+   Navigation Sidebar
+   ============================================ */
+.md-nav {
+  font-size: 0.85rem;
+}
+
+.md-nav__link {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-nav__link:hover {
+  color: var(--md-default-fg-color);
+}
+
+.md-nav__link--active {
+  color: var(--md-typeset-a-color);
+  font-weight: 600;
+}
+
+/* Right-hand ToC */
+.md-nav--secondary .md-nav__link {
+  color: var(--md-default-fg-color--lighter);
+}
+
+.md-nav--secondary .md-nav__link:hover,
+.md-nav--secondary .md-nav__link--active {
+  color: var(--md-typeset-a-color);
+}
+
+/* ============================================
+   Lists
+   ============================================ */
+.md-typeset ul,
+.md-typeset ol {
+  margin-left: 1.5rem;
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+.md-typeset table:not([class]) {
+  border-collapse: collapse;
+  border: 1px solid var(--md-border-color);
+}
+
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  padding: 0.75rem;
+  border: 1px solid var(--md-border-color);
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-code-bg-color);
+}
+
+/* ============================================
+   Admonitions
+   ============================================ */
+.md-typeset .admonition {
+  border-left: 3px solid var(--md-typeset-a-color);
+  background: transparent;
+  box-shadow: none;
+}
+
+.md-typeset .admonition-title {
+  color: var(--md-default-fg-color);
+}
+
+/* ============================================
+   FORCE DESKTOP LAYOUT
+   ============================================ */
+
+/* Always show top tabs */
+.md-tabs {
+  display: block !important;
+}
+
+/* Hide hamburger menu */
+.md-header__button.md-icon[for="__drawer"] {
+  display: none !important;
+}
+
+/* Always show sidebars */
+.md-sidebar--primary {
+  transform: none !important;
+  visibility: visible !important;
+}
+
+.md-sidebar--secondary {
+  display: block !important;
+}
+
+/* Disable drawer overlay */
+.md-overlay {
+  display: none !important;
+}
+
+/* Prevent content shift */
+.md-main__inner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   Theme Toggle Button
+   ============================================ */
+.md-header__button[for="__palette"] {
+  color: var(--md-default-fg-color);
+}
+
+/* ============================================
+   Scrollbar (subtle)
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--md-default-bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--md-default-fg-color--lighter);
+}

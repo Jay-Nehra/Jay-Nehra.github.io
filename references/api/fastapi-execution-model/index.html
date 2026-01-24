@@ -1,0 +1,5370 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Developer, learner, writer">
+      
+      
+        <meta name="author" content="Jayant Nehra">
+      
+      
+        <link rel="canonical" href="https://Jay-Nehra.github.io/references/api/fastapi-execution-model/">
+      
+      
+        <link rel="prev" href="../../python/common-gotchas/">
+      
+      
+        <link rel="next" href="../../llm/agent-architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>FastAPI Execution Model for LLM Applications - Jayant Nehra</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="parchment" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fastapi-execution-model-for-llm-applications" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Jayant Nehra" class="md-header__button md-logo" aria-label="Jayant Nehra" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jayant Nehra
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FastAPI Execution Model for LLM Applications
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="parchment" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to warm parchment"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to warm parchment" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="parchment-warm" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to solarized"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to solarized" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-2.69L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="solarized-teal" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to dark" for="__palette_3" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33m0-6h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2V6h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0C17.22 5.53 18.61 6 20 6m0 12h2v2h-2c-1.38 0-2.74-.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22.86 2.61 1.33 4 1.33"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="ink-dark" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to parchment"  type="radio" name="__palette" id="__palette_3">
+    
+      <label class="md-header__button md-icon" title="Switch to parchment" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Jay-Nehra/Jay-Nehra.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jay-Nehra.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../portfolio/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Portfolio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../resume/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Resume
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../notes/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../snippets/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Snippets
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jayant Nehra" class="md-nav__button md-logo" aria-label="Jayant Nehra" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jayant Nehra
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Jay-Nehra/Jay-Nehra.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jay-Nehra.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../portfolio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portfolio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../resume/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resume
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../blog/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/2026-01-why-i-built-this/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why I Built This Site
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../notes/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/python/async-explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding Python Async/Await
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/python/decorators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decorators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/python/gil-explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gil explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/python/type-hints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Type hints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/databases/indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/databases/replication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Replication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/databases/transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/web/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/web/cors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/web/rest-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rest apis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    References
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../python/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Internals
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_2" id="__nav_7_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Internals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/introspection-and-protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introspection and Python Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/gil-and-threading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The GIL and Threading in Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/multiprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiprocessing in Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/async-execution-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async/Await Execution Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/memory-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory Management in Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/decorators-and-closures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decorators and Closures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/generators-and-iteration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generators and Iteration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/import-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Python Import System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/context-managers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Managers and the with Statement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/common-gotchas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common Python Gotchas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Execution Model for LLM Applications
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Execution Model for LLM Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#this-document-explains-how-fastapi-actually-works-at-runtime-not-the-syntax-but-the-execution-mechanics-if-you-understand-what-happens-when-a-request-arrives-where-your-code-runs-and-what-resources-are-shared-you-will-stop-making-the-class-of-bugs-that-only-appear-in-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        This document explains how FastAPI actually works at runtime — not the syntax, but the execution mechanics. If you understand what happens when a request arrives, where your code runs, and what resources are shared, you will stop making the class of bugs that only appear in production.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-server-really" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What Is a Server, Really
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What Is a Server, Really">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-runtime-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Runtime Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-works-locally-means-nothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "Works Locally" Means Nothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-fastapi-actually-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What FastAPI Actually Is
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. What FastAPI Actually Is">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-as-a-configuration-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FastAPI as a Configuration Object
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uvicorns-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uvicorn's Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-handoff-parsing-routing-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Handoff: Parsing, Routing, Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starlette-underneath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starlette Underneath
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-request-execution-the-complete-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Request Execution: The Complete Trace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Request Execution: The Complete Trace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bytes-arrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bytes Arrive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-and-dependency-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation and Dependency Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-syncasync-branching-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Sync/Async Branching Decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pseudo-code-trace-sync-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pseudo-Code Trace: Sync Handler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pseudo-code-trace-async-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pseudo-Code Trace: Async Handler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sync-handlers-thread-pool-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sync Handlers: Thread Pool Execution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Sync Handlers: Thread Pool Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-run_in_executor-actually-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What run_in_executor Actually Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-pool-size-configuration-and-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Pool Size, Configuration, and Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-pool-exhaustion-symptoms-causes-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Pool Exhaustion: Symptoms, Causes, Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-sync-is-correct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Sync Is Correct
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-async-handlers-event-loop-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Async Handlers: Event Loop Execution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Async Handlers: Event Loop Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coroutines-as-paused-computations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coroutines as Paused Computations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_task-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_task Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-await-actually-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What await Actually Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-loop-starvation-symptoms-causes-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event Loop Starvation: Symptoms, Causes, Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-event-loop-starvation-is-worse-than-thread-pool-exhaustion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Event Loop Starvation Is Worse Than Thread Pool Exhaustion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-blocking-operations-in-async-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Blocking Operations in Async Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Blocking Operations in Async Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-timesleep-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The time.sleep Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sync-http-client-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Sync HTTP Client Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-passes-tests-and-fails-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Passes Tests and Fails Production
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correct-solution-1-async-http-clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correct Solution 1: Async HTTP Clients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correct-solution-2-offload-to-thread-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correct Solution 2: Offload to Thread Pool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mental-image-the-intersection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Image: The Intersection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-lifespan-and-shared-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Lifespan and Shared Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Lifespan and Shared Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process-scope-vs-request-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process Scope vs Request Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-belongs-in-lifespan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Lifespan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-belongs-in-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-request-contamination-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Request Contamination Bugs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lazy-initialization-race-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy Initialization Race Conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mental-image-the-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Image: The Factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-background-tasks-vs-real-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Background Tasks vs Real Jobs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Background Tasks vs Real Jobs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-background-tasks-still-in-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FastAPI Background Tasks: Still In-Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-background-is-misleading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "Background" Is Misleading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-three-execution-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Three Execution Zones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-externalize-to-job-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Externalize to Job Queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-batch-vs-online-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Batch vs Online Inference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Batch vs Online Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#different-load-shapes-different-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Different Load Shapes, Different Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-batch-cannot-be-a-slow-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Batch Cannot Be "A Slow Request"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job-based-api-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job-Based API Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fairness-and-starvation-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fairness and Starvation Prevention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mental-image-the-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Image: The Workshop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-the-execution-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: The Execution Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interview-framing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interview Framing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/agent-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Architecture from First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/api-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM API Execution Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/rag-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAG Architecture from First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/vector-databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Databases from First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/text-data-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Text Data Engineering for LLM Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/data-profiling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Profiling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/data-cleaning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Cleaning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/quality-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/correction-strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correction Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agents
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Agents
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../agents/strands-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strands Agents: Complete Systems Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables &amp; python-dotenv
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serialization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Serialization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../serialization/json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python's json Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Filesystem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Filesystem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../filesystem/pathlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python's pathlib Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_11" id="__nav_7_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HTTP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/httpx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    httpx - Modern HTTP Client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_12" id="__nav_7_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/argparse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python's argparse Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/python-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/llm-systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/agent-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/production-ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/system-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../snippets/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snippets
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Snippets
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../snippets/bash-find-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash find files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../snippets/python-async-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python async requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../snippets/python-retry-decorator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Retry Decorator with Exponential Backoff
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../snippets/sql-recursive-cte/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sql recursive cte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#this-document-explains-how-fastapi-actually-works-at-runtime-not-the-syntax-but-the-execution-mechanics-if-you-understand-what-happens-when-a-request-arrives-where-your-code-runs-and-what-resources-are-shared-you-will-stop-making-the-class-of-bugs-that-only-appear-in-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        This document explains how FastAPI actually works at runtime — not the syntax, but the execution mechanics. If you understand what happens when a request arrives, where your code runs, and what resources are shared, you will stop making the class of bugs that only appear in production.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-server-really" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What Is a Server, Really
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What Is a Server, Really">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-runtime-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Runtime Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-works-locally-means-nothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "Works Locally" Means Nothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-fastapi-actually-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What FastAPI Actually Is
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. What FastAPI Actually Is">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-as-a-configuration-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FastAPI as a Configuration Object
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uvicorns-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uvicorn's Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-handoff-parsing-routing-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Handoff: Parsing, Routing, Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starlette-underneath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starlette Underneath
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-request-execution-the-complete-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Request Execution: The Complete Trace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Request Execution: The Complete Trace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bytes-arrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bytes Arrive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-and-dependency-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation and Dependency Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-syncasync-branching-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Sync/Async Branching Decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pseudo-code-trace-sync-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pseudo-Code Trace: Sync Handler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pseudo-code-trace-async-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pseudo-Code Trace: Async Handler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sync-handlers-thread-pool-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sync Handlers: Thread Pool Execution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Sync Handlers: Thread Pool Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-run_in_executor-actually-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What run_in_executor Actually Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-pool-size-configuration-and-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Pool Size, Configuration, and Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-pool-exhaustion-symptoms-causes-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Pool Exhaustion: Symptoms, Causes, Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-sync-is-correct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Sync Is Correct
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-async-handlers-event-loop-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Async Handlers: Event Loop Execution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Async Handlers: Event Loop Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coroutines-as-paused-computations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coroutines as Paused Computations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_task-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_task Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-await-actually-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What await Actually Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-loop-starvation-symptoms-causes-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event Loop Starvation: Symptoms, Causes, Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-event-loop-starvation-is-worse-than-thread-pool-exhaustion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Event Loop Starvation Is Worse Than Thread Pool Exhaustion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-blocking-operations-in-async-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Blocking Operations in Async Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Blocking Operations in Async Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-timesleep-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The time.sleep Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sync-http-client-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Sync HTTP Client Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-passes-tests-and-fails-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Passes Tests and Fails Production
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correct-solution-1-async-http-clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correct Solution 1: Async HTTP Clients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correct-solution-2-offload-to-thread-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correct Solution 2: Offload to Thread Pool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mental-image-the-intersection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Image: The Intersection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-lifespan-and-shared-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Lifespan and Shared Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Lifespan and Shared Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process-scope-vs-request-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process Scope vs Request Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-belongs-in-lifespan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Lifespan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-belongs-in-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-request-contamination-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Request Contamination Bugs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lazy-initialization-race-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy Initialization Race Conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mental-image-the-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Image: The Factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-background-tasks-vs-real-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Background Tasks vs Real Jobs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Background Tasks vs Real Jobs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-background-tasks-still-in-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FastAPI Background Tasks: Still In-Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-background-is-misleading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "Background" Is Misleading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-three-execution-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Three Execution Zones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-externalize-to-job-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Externalize to Job Queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-batch-vs-online-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Batch vs Online Inference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Batch vs Online Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#different-load-shapes-different-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Different Load Shapes, Different Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-batch-cannot-be-a-slow-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Batch Cannot Be "A Slow Request"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job-based-api-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job-Based API Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fairness-and-starvation-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fairness and Starvation Prevention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mental-image-the-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Image: The Workshop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-the-execution-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: The Execution Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interview-framing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interview Framing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Jay-Nehra/Jay-Nehra.github.io/edit/main/docs/references/api/fastapi-execution-model.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="fastapi-execution-model-for-llm-applications">FastAPI Execution Model for LLM Applications<a class="headerlink" href="#fastapi-execution-model-for-llm-applications" title="Permanent link">&para;</a></h1>
+<h2 id="this-document-explains-how-fastapi-actually-works-at-runtime-not-the-syntax-but-the-execution-mechanics-if-you-understand-what-happens-when-a-request-arrives-where-your-code-runs-and-what-resources-are-shared-you-will-stop-making-the-class-of-bugs-that-only-appear-in-production">This document explains how FastAPI actually works at runtime — not the syntax, but the execution mechanics. If you understand what happens when a request arrives, where your code runs, and what resources are shared, you will stop making the class of bugs that only appear in production.<a class="headerlink" href="#this-document-explains-how-fastapi-actually-works-at-runtime-not-the-syntax-but-the-execution-mechanics-if-you-understand-what-happens-when-a-request-arrives-where-your-code-runs-and-what-resources-are-shared-you-will-stop-making-the-class-of-bugs-that-only-appear-in-production" title="Permanent link">&para;</a></h2>
+<h2 id="1-what-is-a-server-really">1. What Is a Server, Really<a class="headerlink" href="#1-what-is-a-server-really" title="Permanent link">&para;</a></h2>
+<p>Before we talk about FastAPI, we need to establish what a server actually is, because most confusion stems from treating servers like scripts.</p>
+<p>A script is a program that starts, runs top to bottom, and exits. When you run a Python script, the interpreter creates a process, executes your code sequentially, and then terminates. Memory is reclaimed. State disappears. Every run begins from a clean slate.</p>
+<p>A server is fundamentally different. A server is a program that starts and then waits. It does not exit. It stays alive indefinitely, reacting to external events over time. When you start an API server, the Python interpreter creates a process that allocates memory, opens network sockets, initializes data structures, and then enters a loop that never ends. That loop waits for requests, handles them, and then waits again. Hours later, it is still the same process, with the same memory, the same global variables, the same objects, and the same accumulated history.</p>
+<p>This single difference — the process does not exit — is the root of almost every conceptual pitfall in API development.</p>
+<h3 id="the-runtime-concept">The Runtime Concept<a class="headerlink" href="#the-runtime-concept" title="Permanent link">&para;</a></h3>
+<p>When people talk about "runtime" in the context of servers, they mean the living execution environment of your program over time. This is not a file or a package. It is a state. For Python, the runtime includes the interpreter process itself, the memory it has allocated, the objects currently alive in that memory, the threads or event loop that are running, the open file descriptors and sockets, and the scheduling rules that decide what runs next.</p>
+<p>In a short script, the runtime is born, does its work, and dies in seconds. You never feel it.</p>
+<p>In an API server, the runtime lives for hours or days. Everything you create in that process persists. Mistakes accumulate. Bugs compound. A memory leak that loses 1MB per request becomes a crash after 10,000 requests. A global variable that gets overwritten becomes a security breach when two users' requests overlap.</p>
+<p>This is why tutorials that teach you to "just call the function" miss the point entirely. In a server, you are not calling functions. You are registering handlers that the runtime will invoke later, possibly thousands of times, possibly concurrently, under conditions you do not directly control.</p>
+<h3 id="why-works-locally-means-nothing">Why "Works Locally" Means Nothing<a class="headerlink" href="#why-works-locally-means-nothing" title="Permanent link">&para;</a></h3>
+<p>When you test an API locally, you typically send one request at a time. The runtime starts fresh each time you restart the server. Memory is abundant. Network latency is zero. There is no contention for resources.</p>
+<p>In production, everything changes. Hundreds of requests arrive simultaneously. The runtime has been alive for days. Memory pressure is real. Downstream services are slow. Rate limits exist. The problems that matter only appear under these conditions.</p>
+<p>This is why understanding the execution model is not optional. The execution model is the difference between "it works on my machine" and "it survives production."</p>
+<hr />
+<h2 id="2-what-fastapi-actually-is">2. What FastAPI Actually Is<a class="headerlink" href="#2-what-fastapi-actually-is" title="Permanent link">&para;</a></h2>
+<p>When you write <code>app = FastAPI()</code>, you are not starting a server. You are not opening sockets. You are not handling requests. You are creating a configuration object that describes how requests should be handled if they arrive.</p>
+<p>That object contains mappings from paths and HTTP methods to Python functions, rules for validation, dependency injection logic, and lifecycle hooks. It is inert by itself. Nothing runs because of it.</p>
+<h3 id="fastapi-as-a-configuration-object">FastAPI as a Configuration Object<a class="headerlink" href="#fastapi-as-a-configuration-object" title="Permanent link">&para;</a></h3>
+<p>Think of FastAPI as a recipe book, not a kitchen. The recipe book describes what dishes exist and how to prepare them. But the recipe book does not cook anything. You need a kitchen (the ASGI server) to actually prepare food (handle requests).</p>
+<p>When you decorate a function with <code>@app.get("/ping")</code>, you are adding an entry to this recipe book:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ping&quot;</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">():</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p>At this point, the <code>ping</code> function exists and is registered with the app. But no server is running. No requests can be handled. The function will never be called until something else starts the actual server.</p>
+<h3 id="uvicorns-role">Uvicorn's Role<a class="headerlink" href="#uvicorns-role" title="Permanent link">&para;</a></h3>
+<p>The thing that actually runs the server is the ASGI server, typically Uvicorn. ASGI stands for Asynchronous Server Gateway Interface — it is a specification for how Python web applications communicate with web servers.</p>
+<p>When you run <code>uvicorn main:app</code>, Uvicorn does the following:</p>
+<ol>
+<li>Starts a Python process</li>
+<li>Creates an event loop using asyncio</li>
+<li>Opens a listening socket on the specified host and port</li>
+<li>Creates a thread pool for running blocking code</li>
+<li>Imports your module and evaluates <code>app = FastAPI()</code></li>
+<li>Begins accepting connections on the socket</li>
+</ol>
+<p>At this point, a runtime exists. The process is alive. The event loop is spinning. Requests can now be handled.</p>
+<h3 id="the-handoff-parsing-routing-execution">The Handoff: Parsing, Routing, Execution<a class="headerlink" href="#the-handoff-parsing-routing-execution" title="Permanent link">&para;</a></h3>
+<p>When an HTTP request arrives over the network, several layers process it before your code runs.</p>
+<p>First, Uvicorn reads bytes from the socket and parses them into an HTTP request. This parsing happens entirely within Uvicorn's internals. You do not control it, and you do not need to understand the byte-level details. What matters is that after this step, the request is no longer raw bytes — it is a structured object with a method, path, headers, and body.</p>
+<p>Next, Uvicorn hands this structured request to your FastAPI application. This is the handoff point. Below this line is networking and protocol handling. Above this line is application logic.</p>
+<p>FastAPI (via Starlette, which it is built on) now does routing. It matches the request method and path against registered routes. If you requested <code>GET /ping</code>, FastAPI finds the <code>ping</code> function you registered.</p>
+<p>Before executing the handler, FastAPI performs validation and dependency resolution. If your handler declares parameters that come from the path, query string, headers, or body, FastAPI uses Pydantic to validate and parse those inputs into Python objects. If validation fails, your handler is never run — the client receives an error response.</p>
+<p>Only after all of this does FastAPI decide how to actually execute your handler. This decision is where concurrency behavior is determined.</p>
+<h3 id="starlette-underneath">Starlette Underneath<a class="headerlink" href="#starlette-underneath" title="Permanent link">&para;</a></h3>
+<p>FastAPI is built on top of Starlette, which provides the low-level ASGI handling, routing, middleware, and request/response objects. FastAPI adds dependency injection, automatic validation, serialization, and OpenAPI documentation generation.</p>
+<p>You rarely need to think about Starlette directly, but understanding that it exists helps explain why FastAPI feels "declarative." You are not telling Python to "run this function now." You are declaring intent: "when a request like this arrives, here is what should happen."</p>
+<hr />
+<h2 id="3-request-execution-the-complete-trace">3. Request Execution: The Complete Trace<a class="headerlink" href="#3-request-execution-the-complete-trace" title="Permanent link">&para;</a></h2>
+<p>Let us trace exactly what happens when a request arrives, step by step. This is the execution model you need to internalize.</p>
+<h3 id="bytes-arrive">Bytes Arrive<a class="headerlink" href="#bytes-arrive" title="Permanent link">&para;</a></h3>
+<p>A client sends an HTTP request to your server. At the lowest level, this is bytes arriving on a TCP socket. Uvicorn's event loop is notified that data is available. Uvicorn reads the bytes and parses them according to the HTTP protocol.</p>
+<p>The result is a structured request: method <code>GET</code>, path <code>/ping</code>, headers like <code>Content-Type: application/json</code>, and possibly a body.</p>
+<h3 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h3>
+<p>Uvicorn passes this structured request to your FastAPI app. FastAPI looks up which handler matches the method and path. For <code>GET /ping</code>, it finds your <code>ping</code> function.</p>
+<h3 id="validation-and-dependency-resolution">Validation and Dependency Resolution<a class="headerlink" href="#validation-and-dependency-resolution" title="Permanent link">&para;</a></h3>
+<p>Before running the handler, FastAPI inspects its signature. If you declared parameters, FastAPI extracts values from the request and validates them.</p>
+<p>For example, if your handler is:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/users/</span><span class="si">{user_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">include_profile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="o">...</span>
+</span></code></pre></div>
+<p>FastAPI will:
+- Extract <code>user_id</code> from the path and validate it is an integer
+- Extract <code>include_profile</code> from query parameters and validate it is a boolean
+- If validation fails, return a 422 error without running your handler</p>
+<p>FastAPI also resolves dependencies at this stage. If your handler uses <code>Depends(...)</code>, those dependency functions are called first, and their results are passed to your handler.</p>
+<p>All of this happens before your handler code runs. This is important: the request has been fully parsed and validated before you see it.</p>
+<h3 id="the-syncasync-branching-decision">The Sync/Async Branching Decision<a class="headerlink" href="#the-syncasync-branching-decision" title="Permanent link">&para;</a></h3>
+<p>Now comes the critical moment. FastAPI has a handler it wants to execute. It looks at the handler and asks one question:</p>
+<p>Is this a coroutine function (<code>async def</code>) or a regular function (<code>def</code>)?</p>
+<p>This is not about syntax preference. It is about scheduling policy. The answer determines where and how your code runs.</p>
+<p>If the handler is defined with <code>def</code>, FastAPI assumes it may block. To protect the event loop, it schedules the function to run in a worker thread.</p>
+<p>If the handler is defined with <code>async def</code>, FastAPI assumes it will cooperate with the event loop. It schedules the handler as a task on the event loop itself.</p>
+<h3 id="pseudo-code-trace-sync-handler">Pseudo-Code Trace: Sync Handler<a class="headerlink" href="#pseudo-code-trace-sync-handler" title="Permanent link">&para;</a></h3>
+<p>Let us trace what happens with a sync handler:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ping&quot;</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">():</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Conceptually, FastAPI does something like this:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">handler</span> <span class="o">=</span> <span class="n">ping</span>  <span class="c1"># regular function</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Cannot run directly on event loop — would block</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Submit to thread pool</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">future</span> <span class="o">=</span> <span class="n">event_loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">thread_pool_executor</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">handler</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Event loop continues, waits for future to complete</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">future</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># Serialize result and return response</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="k">return</span> <span class="n">JSONResponse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></code></pre></div>
+<p>The key points:
+- The handler runs in a worker thread, not on the event loop
+- The event loop remains free to handle other requests
+- When the thread finishes, the result is returned to the event loop</p>
+<h3 id="pseudo-code-trace-async-handler">Pseudo-Code Trace: Async Handler<a class="headerlink" href="#pseudo-code-trace-async-handler" title="Permanent link">&para;</a></h3>
+<p>Now compare with an async handler:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ping&quot;</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">():</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Conceptually, FastAPI does this:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">handler</span> <span class="o">=</span> <span class="n">ping</span>  <span class="c1"># coroutine function</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># Call the function — this returns a coroutine, not a result</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">coroutine</span> <span class="o">=</span> <span class="n">handler</span><span class="p">()</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Schedule the coroutine as a task on the event loop</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coroutine</span><span class="p">)</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># Wait for the task to complete</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">task</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># Serialize result and return response</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="k">return</span> <span class="n">JSONResponse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></code></pre></div>
+<p>The key points:
+- The handler runs on the event loop itself
+- No worker thread is involved
+- The handler must cooperate by yielding at <code>await</code> points</p>
+<hr />
+<h2 id="4-sync-handlers-thread-pool-execution">4. Sync Handlers: Thread Pool Execution<a class="headerlink" href="#4-sync-handlers-thread-pool-execution" title="Permanent link">&para;</a></h2>
+<p>When you write a sync handler (<code>def</code>), FastAPI runs it in a thread pool. Understanding how this works is essential for predicting behavior under load.</p>
+<h3 id="what-run_in_executor-actually-does">What run_in_executor Actually Does<a class="headerlink" href="#what-run_in_executor-actually-does" title="Permanent link">&para;</a></h3>
+<p>The <code>run_in_executor</code> mechanism is a standard asyncio feature. It allows synchronous, potentially blocking code to run in a separate thread while the event loop continues.</p>
+<p>When FastAPI calls <code>run_in_executor</code>:
+1. The handler function is placed in a queue
+2. One worker thread from the pool picks it up
+3. That thread executes the function fully, blocking until it returns
+4. The result is placed in a Future object
+5. The event loop is notified that the Future is ready</p>
+<p>While the worker thread is executing:
+- The event loop is not blocked
+- Other requests can be accepted and routed
+- Async handlers can run
+- Other sync handlers can run on other threads (if available)</p>
+<p>The event loop acts as a coordinator, not an executor.</p>
+<h3 id="thread-pool-size-configuration-and-limits">Thread Pool Size, Configuration, and Limits<a class="headerlink" href="#thread-pool-size-configuration-and-limits" title="Permanent link">&para;</a></h3>
+<p>The thread pool has a finite number of threads. By default, this is often set to something like <code>min(32, cpu_count + 4)</code> in Python's concurrent.futures, though ASGI servers may configure this differently.</p>
+<p>You can configure the thread pool size, but increasing it is not a free win. More threads mean:
+- More memory usage (each thread has its own stack)
+- More context switching overhead
+- More contention for shared resources</p>
+<p>At some point, adding threads makes performance worse, not better.</p>
+<p>The important insight is that concurrency for sync handlers is bounded by the thread pool size. If you have 10 threads and 100 concurrent requests, 90 requests are waiting.</p>
+<h3 id="thread-pool-exhaustion-symptoms-causes-solutions">Thread Pool Exhaustion: Symptoms, Causes, Solutions<a class="headerlink" href="#thread-pool-exhaustion-symptoms-causes-solutions" title="Permanent link">&para;</a></h3>
+<p>Thread pool exhaustion happens when all worker threads are busy and new requests must wait for a thread to become available.</p>
+<p><strong>Symptoms:</strong>
+- Latency increases linearly with load
+- CPU usage may be moderate (threads are waiting, not computing)
+- Memory is stable
+- Logs show requests completing, just slowly</p>
+<p><strong>Causes:</strong>
+- Too many concurrent requests for the pool size
+- Handlers that block for too long (slow database queries, slow HTTP calls)
+- Handlers that do CPU-intensive work</p>
+<p><strong>Solutions:</strong>
+- Increase thread pool size (limited benefit)
+- Make handlers faster (reduce blocking time)
+- Convert to async handlers with async I/O
+- Add backpressure (reject requests when overloaded)</p>
+<p><strong>Recognition pattern:</strong> If latency grows steadily under load but nothing crashes, suspect thread pool exhaustion.</p>
+<h3 id="when-sync-is-correct">When Sync Is Correct<a class="headerlink" href="#when-sync-is-correct" title="Permanent link">&para;</a></h3>
+<p>Sync handlers are not wrong. They are appropriate when:
+- Your code uses blocking libraries that have no async equivalent
+- The blocking time is short and predictable
+- You have sized your thread pool appropriately
+- You prefer simplicity over maximum throughput</p>
+<p>Many production systems run entirely on sync handlers and work fine. The key is understanding the tradeoffs.</p>
+<hr />
+<h2 id="5-async-handlers-event-loop-execution">5. Async Handlers: Event Loop Execution<a class="headerlink" href="#5-async-handlers-event-loop-execution" title="Permanent link">&para;</a></h2>
+<p>When you write an async handler (<code>async def</code>), FastAPI runs it directly on the event loop. This enables high concurrency for I/O-bound work, but introduces different failure modes.</p>
+<h3 id="coroutines-as-paused-computations">Coroutines as Paused Computations<a class="headerlink" href="#coroutines-as-paused-computations" title="Permanent link">&para;</a></h3>
+<p>An <code>async def</code> function does not run when you call it. Instead, calling it returns a coroutine object — essentially a paused computation that knows how to resume itself.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">():</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">coro</span> <span class="o">=</span> <span class="n">ping</span><span class="p">()</span>  <span class="c1"># Does NOT run the body</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># coro is a coroutine object, not {&quot;status&quot;: &quot;ok&quot;}</span>
+</span></code></pre></div>
+<p>To actually run the coroutine, you must either <code>await</code> it or schedule it as a task. The event loop is responsible for driving coroutines forward.</p>
+<h3 id="create_task-mechanics">create_task Mechanics<a class="headerlink" href="#create_task-mechanics" title="Permanent link">&para;</a></h3>
+<p>When FastAPI schedules an async handler, it creates a task:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coroutine</span><span class="p">)</span>
+</span></code></pre></div>
+<p>A Task wraps a coroutine and registers it with the event loop. The event loop will:
+1. Start executing the coroutine
+2. Run until it hits an <code>await</code>
+3. Pause the task and switch to other work
+4. Resume the task when the awaited operation completes
+5. Repeat until the coroutine finishes</p>
+<p>This is cooperative multitasking. Tasks voluntarily yield control at <code>await</code> points.</p>
+<h3 id="what-await-actually-does">What await Actually Does<a class="headerlink" href="#what-await-actually-does" title="Permanent link">&para;</a></h3>
+<p>The <code>await</code> keyword is not decoration. It is the mechanism by which tasks yield control.</p>
+<p>When you write:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">():</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.example.com/data&quot;</span><span class="p">)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span></code></pre></div>
+<p>The <code>await</code> does two things:
+1. Tells the event loop: "I am waiting for this operation. You can run other tasks."
+2. When the operation completes, tells the event loop: "Resume me here."</p>
+<p>Without <code>await</code>, there is no yielding. The task runs continuously until it returns. If it blocks (via non-async I/O, CPU work, or <code>time.sleep</code>), the event loop cannot switch tasks.</p>
+<h3 id="event-loop-starvation-symptoms-causes-solutions">Event Loop Starvation: Symptoms, Causes, Solutions<a class="headerlink" href="#event-loop-starvation-symptoms-causes-solutions" title="Permanent link">&para;</a></h3>
+<p>Event loop starvation happens when a task blocks the event loop, preventing other tasks from running.</p>
+<p><strong>Symptoms:</strong>
+- Sudden, system-wide latency spikes
+- All requests slow down at once (not gradual)
+- CPU may look idle (the loop is blocked waiting)
+- One slow request affects all concurrent requests</p>
+<p><strong>Causes:</strong>
+- Blocking I/O inside async handlers (sync HTTP clients, <code>time.sleep</code>)
+- CPU-intensive work without yielding
+- Long loops without <code>await</code> points
+- Calling sync libraries that block</p>
+<p><strong>Solutions:</strong>
+- Use async libraries for all I/O
+- Offload blocking work to thread pool with <code>run_in_executor</code>
+- Offload CPU work to process pool
+- Add periodic <code>await asyncio.sleep(0)</code> in long loops</p>
+<p><strong>Recognition pattern:</strong> If latency spikes affect all requests simultaneously and the system feels "stuck," suspect event loop starvation.</p>
+<h3 id="why-event-loop-starvation-is-worse-than-thread-pool-exhaustion">Why Event Loop Starvation Is Worse Than Thread Pool Exhaustion<a class="headerlink" href="#why-event-loop-starvation-is-worse-than-thread-pool-exhaustion" title="Permanent link">&para;</a></h3>
+<p>Thread pool exhaustion degrades gracefully. Requests queue up and complete slowly, but the system remains responsive. You can still accept new connections. Health checks pass.</p>
+<p>Event loop starvation is catastrophic. When the loop is blocked, nothing runs. New connections are not accepted. Existing responses are not sent. Health checks fail. Load balancers mark your server as dead.</p>
+<p>This is why blocking code in async handlers is such a serious bug. It looks like working code but fails suddenly under load.</p>
+<hr />
+<h2 id="6-blocking-operations-in-async-code">6. Blocking Operations in Async Code<a class="headerlink" href="#6-blocking-operations-in-async-code" title="Permanent link">&para;</a></h2>
+<p>The most common mistake in FastAPI applications is putting blocking operations inside async handlers. This section explains why this happens, how to recognize it, and how to fix it.</p>
+<h3 id="the-timesleep-example">The time.sleep Example<a class="headerlink" href="#the-timesleep-example" title="Permanent link">&para;</a></h3>
+<p>Consider this handler:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/slow&quot;</span><span class="p">)</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">slow</span><span class="p">():</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Simulating slow work</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;done&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p>This looks harmless. In testing, it works. With one request, it takes one second. Everything seems fine.</p>
+<p>Now send two requests simultaneously.</p>
+<p>Request A arrives. The event loop schedules the <code>slow</code> task and starts executing it. The task calls <code>time.sleep(1)</code>. This is a blocking system call. It does not know about async. It does not yield. It blocks the current thread — which is the event loop thread — for one second.</p>
+<p>Request B arrives during that second. Uvicorn can accept the connection at the OS level, but the event loop cannot process it. Routing, scheduling, response handling — all paused.</p>
+<p>After one second, Request A's sleep finishes. The task completes. The event loop wakes up and processes Request B. But now Request B also calls <code>time.sleep(1)</code> and blocks the loop again.</p>
+<p>With 100 concurrent requests, they serialize. One per second. Throughput collapses. Latency explodes. Nothing crashes. This is the worst kind of failure.</p>
+<h3 id="the-sync-http-client-example">The Sync HTTP Client Example<a class="headerlink" href="#the-sync-http-client-example" title="Permanent link">&para;</a></h3>
+<p>The same problem occurs with sync HTTP clients:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/generate&quot;</span><span class="p">)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="s2">&quot;https://api.llm-provider.com/generate&quot;</span><span class="p">,</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="p">)</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span></code></pre></div>
+<p>This is extremely common in LLM applications. The <code>requests</code> library is blocking. When <code>requests.post</code> runs, it blocks until the HTTP response arrives. If the LLM takes 5 seconds to respond, the event loop is frozen for 5 seconds.</p>
+<p>The danger is psychological. Making an HTTP request feels like "waiting on I/O," which sounds like something async should handle. But async only works if you yield control. The <code>requests</code> library does not yield.</p>
+<h3 id="why-this-passes-tests-and-fails-production">Why This Passes Tests and Fails Production<a class="headerlink" href="#why-this-passes-tests-and-fails-production" title="Permanent link">&para;</a></h3>
+<p>In testing:
+- You send one request at a time
+- Each request works correctly
+- Response times are as expected
+- No errors appear</p>
+<p>In production:
+- Many requests arrive simultaneously
+- They serialize instead of parallelize
+- Latency grows with concurrency
+- Throughput is capped at one request per blocking duration</p>
+<p>This gap between testing and production is why execution model understanding matters.</p>
+<h3 id="correct-solution-1-async-http-clients">Correct Solution 1: Async HTTP Clients<a class="headerlink" href="#correct-solution-1-async-http-clients" title="Permanent link">&para;</a></h3>
+<p>The best solution is to use an async HTTP client:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/generate&quot;</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>            <span class="s2">&quot;https://api.llm-provider.com/generate&quot;</span><span class="p">,</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>            <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>        <span class="p">)</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span></code></pre></div>
+<p>When <code>await client.post(...)</code> runs, it yields control to the event loop. The event loop can process other requests while waiting for the HTTP response. When the response arrives, the task resumes.</p>
+<p>This is cooperative waiting. The event loop stays healthy. Concurrency scales with I/O.</p>
+<h3 id="correct-solution-2-offload-to-thread-pool">Correct Solution 2: Offload to Thread Pool<a class="headerlink" href="#correct-solution-2-offload-to-thread-pool" title="Permanent link">&para;</a></h3>
+<p>If you must use a blocking library, explicitly offload it:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/generate&quot;</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Uses default thread pool</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        <span class="k">lambda</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>            <span class="s2">&quot;https://api.llm-provider.com/generate&quot;</span><span class="p">,</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>            <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>        <span class="p">)</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="p">)</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span></code></pre></div>
+<p>This runs the blocking call in a worker thread, just like a sync handler would. The event loop remains responsive.</p>
+<p>This is less efficient than true async I/O (you're using threads), but it's correct. It prevents event loop starvation.</p>
+<h3 id="mental-image-the-intersection">Mental Image: The Intersection<a class="headerlink" href="#mental-image-the-intersection" title="Permanent link">&para;</a></h3>
+<p>Think of the event loop as a traffic controller at an intersection.</p>
+<p>Async I/O calls are like cars that pull into a waiting lane and signal when they're ready to proceed. The controller can manage many of them at once.</p>
+<p>Blocking calls are like a truck that parks in the middle of the intersection and waits for a delivery. No one else moves until it leaves.</p>
+<p>It doesn't matter that the truck is "waiting." It's still blocking the intersection.</p>
+<hr />
+<h2 id="7-lifespan-and-shared-resources">7. Lifespan and Shared Resources<a class="headerlink" href="#7-lifespan-and-shared-resources" title="Permanent link">&para;</a></h2>
+<p>Now that you understand request execution, we can address a higher-level question: where should long-lived things live?</p>
+<h3 id="process-scope-vs-request-scope">Process Scope vs Request Scope<a class="headerlink" href="#process-scope-vs-request-scope" title="Permanent link">&para;</a></h3>
+<p>Because your API server is a long-running process, anything you create has a lifetime. The two important lifetimes are:</p>
+<p><strong>Process scope:</strong> Objects that exist for the entire life of the server. Created at startup, destroyed at shutdown. Shared by all requests.</p>
+<p><strong>Request scope:</strong> Objects that exist for one request. Created when the request arrives, destroyed when it completes. Isolated per request.</p>
+<p>The fundamental rule is: put things in the correct scope.</p>
+<h3 id="what-belongs-in-lifespan">What Belongs in Lifespan<a class="headerlink" href="#what-belongs-in-lifespan" title="Permanent link">&para;</a></h3>
+<p>Lifespan is FastAPI's mechanism for managing process-scoped resources. Things that belong here:</p>
+<p><strong>ML models:</strong> Loading a model takes seconds and hundreds of megabytes. You cannot reload per request. Load once at startup.</p>
+<p><strong>HTTP clients:</strong> Creating an HTTP client involves connection pools, TLS context, and buffers. Reusing clients across requests gives connection reuse and stable performance.</p>
+<p><strong>Database connection pools:</strong> Opening database connections is expensive. Pools maintain a set of connections that are borrowed and returned per request.</p>
+<p><strong>Tokenizers and artifacts:</strong> Anything expensive to load and safe to share.</p>
+<p><strong>Caches:</strong> In-memory caches must persist across requests to be useful.</p>
+<p>Here's how lifespan looks in FastAPI:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">asynccontextmanager</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nd">@asynccontextmanager</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">lifespan</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">):</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="c1"># Startup: create resources</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">http_client</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_ml_model</span><span class="p">()</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">yield</span>  <span class="c1"># Server runs here</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    <span class="c1"># Shutdown: cleanup resources</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    <span class="k">await</span> <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">http_client</span><span class="o">.</span><span class="n">aclose</span><span class="p">()</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">lifespan</span><span class="o">=</span><span class="n">lifespan</span><span class="p">)</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/predict&quot;</span><span class="p">)</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>    <span class="n">client</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">http_client</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">model</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>    <span class="c1"># Use shared resources</span>
+</span></code></pre></div>
+<h3 id="what-belongs-in-dependencies">What Belongs in Dependencies<a class="headerlink" href="#what-belongs-in-dependencies" title="Permanent link">&para;</a></h3>
+<p>Dependencies are FastAPI's mechanism for managing request-scoped resources. Things that belong here:</p>
+<p><strong>API keys and auth context:</strong> Extracted from headers, different per request, must not leak across requests.</p>
+<p><strong>User identity:</strong> Determined per request from authentication.</p>
+<p><strong>Database transactions:</strong> Opened per request, committed or rolled back when the request completes.</p>
+<p><strong>Request-specific configuration:</strong> Feature flags, rate limit state, etc.</p>
+<p>Here's how dependencies work:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">Header</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_current_user</span><span class="p">(</span><span class="n">authorization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="c1"># Validate token, return user</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="k">return</span> <span class="n">validate_token</span><span class="p">(</span><span class="n">authorization</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/profile&quot;</span><span class="p">)</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">profile</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">User</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">)):</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Each request gets its own call to <code>get_current_user</code>. The result is not shared.</p>
+<h3 id="cross-request-contamination-bugs">Cross-Request Contamination Bugs<a class="headerlink" href="#cross-request-contamination-bugs" title="Permanent link">&para;</a></h3>
+<p>If you put request-scoped data in process scope, you get cross-request contamination. This is a security and correctness failure.</p>
+<p>Consider this broken code:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">current_user</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Global variable</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/profile&quot;</span><span class="p">)</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">profile</span><span class="p">(</span><span class="n">authorization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="k">global</span> <span class="n">current_user</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="n">current_user</span> <span class="o">=</span> <span class="n">validate_token</span><span class="p">(</span><span class="n">authorization</span><span class="p">)</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="c1"># ... do some async work ...</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>  <span class="c1"># Bug!</span>
+</span></code></pre></div>
+<p>If Request A and Request B overlap:
+1. Request A sets <code>current_user</code> to User A
+2. Request A does async work (yields control)
+3. Request B sets <code>current_user</code> to User B
+4. Request A resumes and reads <code>current_user</code> — now User B!</p>
+<p>User A sees User B's data. This is a silent, serious bug.</p>
+<h3 id="lazy-initialization-race-conditions">Lazy Initialization Race Conditions<a class="headerlink" href="#lazy-initialization-race-conditions" title="Permanent link">&para;</a></h3>
+<p>Another common mistake is lazy initialization of shared resources:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">_client</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_client</span><span class="p">():</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="k">global</span> <span class="n">_client</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="k">if</span> <span class="n">_client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="n">_client</span> <span class="o">=</span> <span class="n">create_expensive_client</span><span class="p">()</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>    <span class="k">return</span> <span class="n">_client</span>
+</span></code></pre></div>
+<p>If two requests call <code>get_client</code> simultaneously before initialization:
+1. Request A checks: <code>_client is None</code> → True
+2. Request B checks: <code>_client is None</code> → True
+3. Request A starts creating client
+4. Request B starts creating client
+5. Both create clients, one overwrites the other
+6. Resources may leak, state may be inconsistent</p>
+<p>Lifespan avoids this by initializing once, before any requests.</p>
+<h3 id="mental-image-the-factory">Mental Image: The Factory<a class="headerlink" href="#mental-image-the-factory" title="Permanent link">&para;</a></h3>
+<p>Imagine the server as a factory that never closes.</p>
+<p>When the factory opens for the day, it sets up heavy machinery, power systems, and shared tools. That's lifespan.</p>
+<p>Each customer order gets its own paperwork, measurements, and instructions. That's request scope.</p>
+<p>Workers use the shared machines to process individual orders. They must not scribble customer-specific notes on the machines themselves.</p>
+<hr />
+<h2 id="8-background-tasks-vs-real-jobs">8. Background Tasks vs Real Jobs<a class="headerlink" href="#8-background-tasks-vs-real-jobs" title="Permanent link">&para;</a></h2>
+<p>FastAPI provides "background tasks" that run after the response is sent. Understanding what these actually are — and are not — is critical for LLM applications.</p>
+<h3 id="fastapi-background-tasks-still-in-process">FastAPI Background Tasks: Still In-Process<a class="headerlink" href="#fastapi-background-tasks-still-in-process" title="Permanent link">&para;</a></h3>
+<p>When you add a background task, you're saying: "run this after the response."</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">BackgroundTasks</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/submit&quot;</span><span class="p">)</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">submit</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">background_tasks</span><span class="p">:</span> <span class="n">BackgroundTasks</span><span class="p">):</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="n">background_tasks</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">process_data</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;accepted&quot;</span><span class="p">}</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    <span class="c1"># This runs after response is sent</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>    <span class="o">...</span>
+</span></code></pre></div>
+<p>The client receives the response immediately. The background task runs afterward.</p>
+<p>But here's what people miss: <strong>background tasks run in the same process</strong>.</p>
+<p>They:
+- Share memory with request handlers
+- Use the same event loop or thread pool
+- Compete for CPU, network, and downstream resources
+- Can still block the event loop if async and blocking</p>
+<p>Sending the response does not free resources. It only ends the client's wait.</p>
+<h3 id="why-background-is-misleading">Why "Background" Is Misleading<a class="headerlink" href="#why-background-is-misleading" title="Permanent link">&para;</a></h3>
+<p>The term "background" implies isolation. It suggests the work is happening "somewhere else." This is false.</p>
+<p>Background tasks are foreground work that happens to start after the response. From the server's perspective, they are just more work competing for the same resources.</p>
+<p>If a background task:
+- Blocks the event loop → all requests stall
+- Uses all thread pool threads → sync handlers queue
+- Hammers a downstream API → rate limits affect everyone</p>
+<p>These effects are identical to in-request work.</p>
+<h3 id="the-three-execution-zones">The Three Execution Zones<a class="headerlink" href="#the-three-execution-zones" title="Permanent link">&para;</a></h3>
+<p>To reason about this correctly, think of three zones:</p>
+<p><strong>Zone 1: Request path.</strong> Latency-critical, tightly bounded. Should do the minimum to accept and respond.</p>
+<p><strong>Zone 2: In-process background.</strong> Still inside the API runtime. Okay for small, bounded tasks. Dangerous for heavy work.</p>
+<p><strong>Zone 3: External jobs.</strong> Separate process or system. Own capacity, own failure modes, own lifecycle.</p>
+<p>FastAPI gives you Zones 1 and 2. It does not solve Zone 3.</p>
+<h3 id="when-to-externalize-to-job-queues">When to Externalize to Job Queues<a class="headerlink" href="#when-to-externalize-to-job-queues" title="Permanent link">&para;</a></h3>
+<p>Heavy, long-running, or resource-intensive work belongs outside the API process.</p>
+<p>Signs you need external jobs:
+- Work takes more than a few seconds
+- Work is CPU-intensive
+- Work may fail and need retry
+- Work should survive server restarts
+- Work should not affect API latency</p>
+<p>For LLM applications, this often means:
+- Batch inference → external job queue
+- Document ingestion for RAG → external pipeline
+- Model fine-tuning → separate service
+- Long-running agent tasks → job with status polling</p>
+<p>The API's responsibility is to accept the work, validate it, enqueue it, and return immediately. Actual execution happens elsewhere.</p>
+<hr />
+<h2 id="9-batch-vs-online-inference">9. Batch vs Online Inference<a class="headerlink" href="#9-batch-vs-online-inference" title="Permanent link">&para;</a></h2>
+<p>LLM applications often have two modes: real-time inference for individual requests, and batch processing for large datasets. Understanding how these differ is essential for API design.</p>
+<h3 id="different-load-shapes-different-constraints">Different Load Shapes, Different Constraints<a class="headerlink" href="#different-load-shapes-different-constraints" title="Permanent link">&para;</a></h3>
+<p><strong>Online inference</strong> is characterized by:
+- Many independent requests
+- Low latency requirements (&lt; 1 second ideal)
+- Fairness matters (one user shouldn't starve others)
+- Each request is small</p>
+<p><strong>Batch inference</strong> is characterized by:
+- One request with many items
+- Throughput matters more than latency
+- Can run for minutes or hours
+- Memory pressure is high</p>
+<p>These are fundamentally different load shapes. Treating them the same causes problems.</p>
+<h3 id="why-batch-cannot-be-a-slow-request">Why Batch Cannot Be "A Slow Request"<a class="headerlink" href="#why-batch-cannot-be-a-slow-request" title="Permanent link">&para;</a></h3>
+<p>A common mistake is implementing batch as a synchronous loop inside a request handler:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/batch&quot;</span><span class="p">)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">batch_process</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">llm_client</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Problems with this approach:</p>
+<p><strong>Resource monopolization:</strong> The batch request consumes LLM API quota, memory, and server capacity for its entire duration. Online requests starve.</p>
+<p><strong>No progress visibility:</strong> The client waits with no feedback until everything finishes.</p>
+<p><strong>No partial results:</strong> If the server crashes at item 9,999 of 10,000, all work is lost.</p>
+<p><strong>Timeout risk:</strong> Long requests risk HTTP timeouts, proxy timeouts, client timeouts.</p>
+<h3 id="job-based-api-design">Job-Based API Design<a class="headerlink" href="#job-based-api-design" title="Permanent link">&para;</a></h3>
+<p>The correct pattern separates submission from execution:</p>
+<p><strong>Submit endpoint:</strong> Accepts the batch, validates it, creates a job ID, returns immediately.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/batch&quot;</span><span class="p">)</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">submit_batch</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="n">job_id</span> <span class="o">=</span> <span class="n">create_job</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">enqueue_for_processing</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="n">job_id</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;accepted&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Status endpoint:</strong> Returns job progress without blocking.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/batch/</span><span class="si">{job_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_batch_status</span><span class="p">(</span><span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="n">job</span> <span class="o">=</span> <span class="n">get_job</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">job</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>        <span class="s2">&quot;progress&quot;</span><span class="p">:</span> <span class="n">job</span><span class="o">.</span><span class="n">items_completed</span><span class="p">,</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>        <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="n">job</span><span class="o">.</span><span class="n">items_total</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Results endpoint:</strong> Returns completed results when ready.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/batch/</span><span class="si">{job_id}</span><span class="s2">/results&quot;</span><span class="p">)</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_batch_results</span><span class="p">(</span><span class="n">job_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">job</span> <span class="o">=</span> <span class="n">get_job</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="s2">&quot;completed&quot;</span><span class="p">:</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="s2">&quot;Not ready&quot;</span><span class="p">)</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="n">job</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
+</span></code></pre></div>
+<p>The batch execution happens in Zone 3 — an external worker, job queue, or background process with its own resources.</p>
+<h3 id="fairness-and-starvation-prevention">Fairness and Starvation Prevention<a class="headerlink" href="#fairness-and-starvation-prevention" title="Permanent link">&para;</a></h3>
+<p>Even with job-based design, batch work can starve online traffic if they share downstream resources.</p>
+<p>Consider: you have 50 concurrent LLM API slots. If batch processing uses 40 of them, online requests fight over 10.</p>
+<p>Solutions:</p>
+<p><strong>Explicit quotas:</strong> Reserve capacity for online traffic. Batch gets "leftover" slots.</p>
+<p><strong>Priority queuing:</strong> Online requests always go first. Batch requests wait.</p>
+<p><strong>Separate pools:</strong> Batch workers use different API keys or endpoints with separate limits.</p>
+<p><strong>Backpressure:</strong> When online load is high, pause batch processing.</p>
+<p>The key insight is that fairness must be explicit. The runtime does not automatically balance workloads.</p>
+<h3 id="mental-image-the-workshop">Mental Image: The Workshop<a class="headerlink" href="#mental-image-the-workshop" title="Permanent link">&para;</a></h3>
+<p>Imagine your API as a workshop with limited workbenches.</p>
+<p>Online requests are customers who walk in and need quick service. They should be helped immediately.</p>
+<p>Batch requests are large orders that require hours of work. They should be logged in a notebook and worked on during quiet periods.</p>
+<p>If a large order takes over all the workbenches, walk-in customers leave angry.</p>
+<p>The solution is not "work faster." It is "separate the queues."</p>
+<hr />
+<h2 id="summary-the-execution-model">Summary: The Execution Model<a class="headerlink" href="#summary-the-execution-model" title="Permanent link">&para;</a></h2>
+<p>You now have a complete picture of how FastAPI applications execute:</p>
+<p><strong>The server is a long-running process.</strong> State persists. Mistakes accumulate. Testing is not production.</p>
+<p><strong>FastAPI is a configuration object.</strong> It declares intent. Uvicorn executes.</p>
+<p><strong>The event loop is the scheduler.</strong> It coordinates work but does not do heavy lifting itself.</p>
+<p><strong>Sync handlers run in thread pools.</strong> Concurrency is bounded by pool size. Exhaustion is graceful but slow.</p>
+<p><strong>Async handlers run on the event loop.</strong> Concurrency is bounded by cooperation. Starvation is sudden and catastrophic.</p>
+<p><strong>Blocking in async code is a bug.</strong> It looks like working code. It fails under load.</p>
+<p><strong>Lifespan owns process resources.</strong> Models, clients, pools. Created once, shared safely.</p>
+<p><strong>Dependencies own request resources.</strong> User context, auth, transactions. Isolated per request.</p>
+<p><strong>Background tasks are not isolated.</strong> They share everything. Heavy work belongs external.</p>
+<p><strong>Batch is not a slow request.</strong> It is a job. Decouple submission from execution.</p>
+<p>If you understand these principles, you can reason about FastAPI applications correctly. You can predict what will fail. You can design systems that survive production.</p>
+<hr />
+<h2 id="interview-framing">Interview Framing<a class="headerlink" href="#interview-framing" title="Permanent link">&para;</a></h2>
+<p>If an interviewer asks about FastAPI concurrency, here are the key points to hit:</p>
+<p><strong>"How does FastAPI handle concurrent requests?"</strong></p>
+<p>"FastAPI runs on an event loop with a thread pool. Async handlers run as tasks on the event loop and scale well for I/O-bound work as long as they yield at await points. Sync handlers run in a thread pool, which bounds concurrency to the pool size. The critical thing is understanding what blocks what — blocking code in an async handler starves the event loop, which is worse than thread pool exhaustion because it affects all requests at once."</p>
+<p><strong>"Where would you put a large ML model in a FastAPI app?"</strong></p>
+<p>"In the lifespan context, created at startup and stored in app.state. Models are expensive to load and read-only during inference, so they belong at process scope. Creating them per-request would be catastrophically slow, and lazy initialization risks race conditions."</p>
+<p><strong>"How would you handle batch inference in FastAPI?"</strong></p>
+<p>"I wouldn't process it inline. Batch work can run for minutes and would monopolize resources that online requests need. I'd accept the batch, validate it, create a job with an ID, and return immediately. The actual processing happens in an external worker. The client polls a status endpoint or gets a webhook when complete. This separates submission from execution and prevents starvation."</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 24, 2026 06:38:54 UTC">January 24, 2026</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 24, 2026 06:38:54 UTC">January 24, 2026</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Jayant Nehra
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Jay-Nehra" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/jayant-nehra" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
